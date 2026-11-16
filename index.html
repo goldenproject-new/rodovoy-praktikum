@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Родовой практикум — Катя · отлив воском</title>
+<style>
+:root{--bg:#faf6ef;--card:#fffdf9;--line:#e6dcc8;--m:#5b3b7a;--ms:#f1eaf7;--g:#b8863b;--mu:#8a8071;--tx:#3a332d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body.blur .wrap{filter:blur(14px)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px 70px}
+header{text-align:center;padding:40px 10px 18px}
+.k{color:var(--g);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+h1{color:var(--m);margin:8px 0;font-size:1.8rem}
+header p{color:var(--mu);margin:0 auto;max-width:560px;font-size:.95rem}
+.layout{display:flex;gap:22px;align-items:flex-start}
+.side{position:sticky;top:16px;flex:0 0 260px;display:flex;flex-direction:column;gap:5px;max-height:calc(100vh - 32px);overflow-y:auto;padding-right:2px}
+.main{flex:1;min-width:0}
+.tab{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:7px 12px;font:inherit;font-size:.84rem;line-height:1.3;color:var(--tx);cursor:pointer;text-align:left}
+.tab:hover{border-color:var(--g)}
+.tab.on{background:var(--m);color:#fff;border-color:var(--m)}
+@media(max-width:760px){.layout{flex-direction:column;gap:10px}.side{position:sticky;top:0;z-index:20;flex:none;width:100%;flex-direction:row;overflow-x:auto;overflow-y:hidden;max-height:none;padding:8px 0;background:var(--bg)}.tab{white-space:nowrap;flex:0 0 auto}}
+.topic{display:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:18px}
+.topic.show{display:block}
+h2{margin:0 0 8px;color:var(--m);font-size:1.3rem}
+h4{margin:20px 0 8px;color:var(--g);font-size:.85rem;letter-spacing:.04em}
+p{margin:0 0 10px;font-size:.95rem;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}.step span{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.li{padding-left:14px;border-left:2px solid var(--line)}
+.prog{height:5px;background:var(--ms);border-radius:5px;overflow:hidden;margin-bottom:14px}
+.prog i{display:block;height:100%;width:0;background:var(--g);transition:width .3s}
+.step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;margin-bottom:8px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:.95rem}
+.step input{appearance:none;-webkit-appearance:none;width:24px;height:24px;border:2px solid var(--g);border-radius:50%;flex:0 0 auto;margin:1px 0 0;display:grid;place-content:center;background:#fff;cursor:pointer}
+.step input::after{content:"✓";font-size:15px;line-height:1;color:#fff;transform:scale(0);transition:transform .15s}
+.step input:checked{background:var(--m);border-color:var(--m)}
+.step input:checked::after{transform:scale(1)}
+.step:has(input:checked){background:var(--ms)}
+.spell{background:var(--ms);border-radius:12px;margin:12px 0;border-left:3px solid var(--g);padding:14px 18px;white-space:pre-line;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.toc{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:10px;font:inherit;color:var(--tx);cursor:pointer}
+.toc b{display:block;color:var(--m)}.toc small{color:var(--mu);font-size:.82rem}.toc:hover{border-color:var(--g)}
+.back{background:none;border:0;color:var(--g);font:inherit;font-size:.85rem;cursor:pointer;padding:0 0 8px}
+.contacts{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.c{padding:11px 22px;border-radius:26px;color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;background:var(--m)}
+.c.tg{background:#29a3e0}.c.mx{background:#8b5cf6}.c.vk{background:#4a76a8}
+.red,.red *{color:#ee220c}.red2,.red2 *{color:#b51700}
+.note{background:var(--ms);border-left:3px solid var(--g);border-radius:0 10px 10px 0;padding:10px 14px;margin:0 0 14px;font-size:.88rem;color:var(--m)}
+.hint{font-size:.8rem;color:var(--mu);text-align:center;margin-top:8px}
+footer{text-align:center;color:var(--m);margin-top:36px}
+#gate{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+#gate div{background:var(--card);border:1px solid var(--g);border-radius:18px;padding:30px;max-width:420px;text-align:center}
+#gate input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;margin:12px 0;-webkit-user-select:text;user-select:text}
+#gate button{background:var(--m);color:#fff;border:0;border-radius:24px;padding:11px 26px;font:inherit;cursor:pointer}
+#wm{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.13}
+body.locked .wrap,body.locked #wm{display:none}
+@media print{body{display:none}}
+html{-webkit-text-size-adjust:100%}
+@media(max-width:760px){.wrap{padding:0 12px 60px}header{padding:22px 4px 10px}h1{font-size:1.5rem}.topic{padding:16px 14px;border-radius:14px}.spell{padding:12px 14px}.step{padding:9px 10px}.side{margin:0 -12px;padding:8px 12px;border-bottom:1px solid var(--line);scrollbar-width:none}.side::-webkit-scrollbar{display:none}.tab{font-size:.82rem;padding:8px 12px;border-radius:18px}}
+
+.video{position:relative;width:100%;aspect-ratio:16/9;background:#2b1d3a;border-radius:14px;overflow:hidden;margin:6px 0 16px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video.v{aspect-ratio:auto;background:#000;max-width:340px;margin:6px auto 16px}.video.v video{display:block;width:100%;max-height:80vh;background:#000}
+.vkl{margin:6px 0 18px}.vkbtn{display:inline-block;padding:12px 22px;border-radius:12px;background:var(--m);color:#fff;text-decoration:none;font-weight:600}
+.vph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#e9dff5;font-size:.95rem;text-align:center;padding:12px}
+.vph b{font-size:2.2rem;margin-bottom:6px;color:var(--g)}
+.soon{background:var(--ms);border:1px dashed var(--g);border-radius:12px;padding:14px 18px;color:var(--m);font-size:.92rem;margin:0 0 14px}
+.done{display:flex;gap:10px;align-items:center;margin-top:20px;padding:12px 14px;border:1px solid var(--g);border-radius:12px;cursor:pointer;font-weight:600;color:var(--m)}
+.done input{appearance:none;-webkit-appearance:none;width:24px;height:24px;border:2px solid var(--g);border-radius:50%;display:grid;place-content:center;background:#fff;cursor:pointer;margin:0}
+.done input::after{content:"✓";font-size:15px;line-height:1;color:#fff;transform:scale(0);transition:transform .15s}
+.done input:checked{background:var(--m);border-color:var(--m)}.done input:checked::after{transform:scale(1)}
+.tab.ok::after{content:" ✓";color:var(--g);font-weight:700}.tab.on.ok::after{color:#fff}
+.sl{margin:24px 0 10px;color:var(--m);font-size:1.05rem;line-height:1.35;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.bl{display:flex;gap:10px;align-items:flex-start;margin:0 0 10px;font-size:.95rem;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.bl .em{flex:0 0 1.6em;text-align:center}
+.bl.sub{margin-left:1.6em;margin-bottom:8px}
+.ex{margin:0 0 10px 2.6em;padding:10px 14px;background:var(--ms);border-left:3px solid var(--g);border-radius:0 10px 10px 0;font-size:.92rem;color:var(--m)}
+.imp{display:flex;gap:10px;align-items:flex-start;margin:12px 0 4px;padding:12px 16px;background:#fbeee0;border-left:3px solid #c07a2e;border-radius:0 10px 10px 0;font-weight:700;color:#7a4d17}
+.stat{background:var(--ms);border-radius:12px;padding:10px 14px;color:var(--m);font-size:.9rem;margin:14px 0 4px}
+.c.tg{background:#29a3e0}.c.mx{background:#8b5cf6}.c.vk{background:#4a76a8}
+</style></head>
+<body class="locked">
+<noscript><p style="padding:24px;font-family:sans-serif;text-align:center;position:relative;z-index:200;background:#fff">Страница не открылась: в этом просмотрщике выключены скрипты. Откройте ссылку в браузере (Safari или Chrome).</p></noscript>
+<div id="gate"><div>
+<div class="k">✦ Катя · отлив воском ✦</div>
+<h3 style="color:var(--m)">Доступ к Родовому практикуму</h3>
+<p style="color:var(--mu);font-size:.9rem">Введите почту, на которую вы получили доступ. Она будет отображаться на страницах как личный водяной знак.</p>
+<input id="em" placeholder="ваша@почта.ru" autocomplete="email">
+<button id="go">Открыть</button>
+<p id="err" style="color:#a33;font-size:.85rem;margin:8px 0 0"></p>
+</div></div>
+<div id="wm"></div>
+<div class="wrap">
+<header>
+<div class="k">✦ Катя · отлив воском ✦</div>
+<h1>Родовой практикум</h1>
+<p>Теория и 8 практик работы с Родом</p>
+</header>
+<div class="layout"><nav class="side"><button class="tab on" data-t="home">📖 О практикуме</button><button class="tab" data-t="l1">🧰 1. Материалы для практикума</button><button class="tab" data-t="l2">🌳 2. Род и его структура</button><button class="tab" data-t="l3">🧭 3. Миссии в Роду</button><button class="tab" data-t="l4">🌑 4. Родовой негатив</button><button class="tab" data-t="l5">🪽 5. Практика «Крылья Рода»</button><button class="tab" data-t="l6">🔥 6. Практика. Родовой отжиг</button><button class="tab" data-t="l7">👁 7. Практика. Родовые сущности</button><button class="tab" data-t="l8">🛡 8. Практика. Нейтрализация проклятий</button><button class="tab" data-t="l9">🕯 9. Практика. Исключённые из Рода</button><button class="tab" data-t="l10">🏰 10. Практика. Защита Рода</button><button class="tab" data-t="l11">⚡ 11. Практика. Получение силы и энергии Рода</button><button class="tab" data-t="l12">💰 12. Практика. Получение богатств Рода</button><button class="tab" data-t="l13">🎁 Подарок: чистка родового негатива 7 колен</button></nav><main class="main">
+<section class="topic show" id="home"><h2>О практикуме</h2>
+<p>Родовой практикум — это глубокая самостоятельная работа со своим Родом. Эти практики для тех, кто осознал важность своих корней и их влияния на свою жизнь.</p>
+<p>В одном месте собраны все практики от А до Я для полноценной работы со своим родовым Древом:</p>
+<p class="li">Подключение и очищение Рода</p>
+<p class="li">Нейтрализация проклятий и Родовых сущностей</p>
+<p class="li">Практики с абортированными и мертворождёнными детьми</p>
+<p class="li">Получение Защиты, Богатства и Талантов от Рода</p>
+<p>Доступ навсегда. Практики проходите в своём темпе, их всегда можно пройти заново, если того требует душа.</p>
+<p class="ex">Новая ветка реальности, которая откроет перед Вами желаемые и долгожданные события.</p>
+<h4>Как проходить</h4>
+<p class="li">Идите по порядку: меню слева, уроки идут с первого по последний</p>
+<p class="li">Сначала подготовьте материалы из первого урока</p>
+<p class="li">Каждый урок отмечайте галочкой «Урок пройден», чтобы видеть свой путь</p>
+<div class="stat" id="stat">Пройдено уроков: 0 из 13</div>
+<h4>Мои каналы</h4>
+<p>Подписывайтесь на мои каналы: там я делюсь практиками и разборами.</p>
+<div class="contacts"><a class="c tg" href="https://t.me/+2q8WKL9ACItlMDgy" target="_blank" rel="noopener">Telegram-канал</a><a class="c mx" href="https://max.ru/join/ylVXw8DaF0QW02rqqvBct8jWm3EfDHxVMcZ8nB4h6Rs" target="_blank" rel="noopener">MAX-канал</a><a class="c vk" href="https://vk.ru/club227017221" target="_blank" rel="noopener">ВКонтакте</a></div>
+<h4>Связаться со мной</h4>
+<p>Если есть вопросы по курсу или хотите записаться на диагностику, пишите мне лично.</p>
+<div class="contacts"><a class="c tg" href="https://t.me/Ekaterina110788" target="_blank" rel="noopener">Написать в Telegram</a><a class="c mx" href="https://max.ru/u/f9LHodD0cOISh6N1JgHqr2uDu3piaCys_PiqBT-gRLjTB8dWCNtUTUYYL-Y" target="_blank" rel="noopener">Написать в MAX</a><a class="c vk" href="http://vk.ru/id26645955" target="_blank" rel="noopener">Написать во ВКонтакте</a></div>
+<p style="margin-top:18px;text-align:center;color:var(--m)">Да будет Вам во Благо! 🕯💚</p></section>
+<section class="topic" id="l1"><h2>🧰 1. Материалы для практикума</h2><div class="prog"><i></i></div>
+<p class="note">Отмечайте галочкой то, что уже подготовили.</p>
+<h4>ЧТО НАМ ПОНАДОБИТСЯ?</h4>
+<label class="step"><input type="checkbox" data-id="m1"><span>Вощина (фитиль) или восковые свечи</span></label><label class="step"><input type="checkbox" data-id="m2"><span>Красная вощина или красные свечи</span></label><label class="step"><input type="checkbox" data-id="m3"><span>Полынь обязательно, остальные очистительные травы по желанию (крапива, шалфей, зверобой, хвойные)</span></label><label class="step"><input type="checkbox" data-id="m4"><span>Цветные карандаши (хорошие, мягкие)</span></label><label class="step"><input type="checkbox" data-id="m5"><span>Листы плотной бумаги</span></label><label class="step"><input type="checkbox" data-id="m6"><span>Соль: можно обычную поваренную, четверговую или рапу</span></label><label class="step"><input type="checkbox" data-id="m7"><span>Чаша жестяная</span></label><label class="step"><input type="checkbox" data-id="m8"><span>Фольга</span></label><label class="step"><input type="checkbox" data-id="m9"><span>Скатерть, алтарь, бумага</span></label><label class="step"><input type="checkbox" data-id="m10"><span>8 подсвечников, самых простых</span></label><label class="step"><input type="checkbox" data-id="m11"><span>Нож</span></label><label class="step"><input type="checkbox" data-id="m12"><span>Джутовые нити: 3 штуки по 5 метров</span></label>
+<p class="li" style="margin-top:14px">Материалы не обязательно должны быть новые.</p>
+<label class="done"><input type="checkbox" data-done="l1"><span>Урок пройден</span></label></section>
+<section class="topic" id="l2"><h2>🌳 2. Род и его структура</h2>
+
+<h3 class="sl">1. Для чего душа приходит в свой Род</h3>
+<div class="bl"><span class="em">🤍</span><span>Душа не рождается, она вечна и она уже имеет свой опыт и накопленное кармическое наследие.</span></div>
+<div class="bl"><span class="em">🤍</span><span>Душа приходит в этот мир с целью получения жизненного опыта. Это может быть новая задача или попытка исправить ошибки из прошлых жизней.</span></div>
+<h3 class="sl">2. Как душа выбирает Род</h3>
+<div class="bl"><span class="em">🌱</span><span>Перед воплощением Душа выбирает родителей, опираясь на свои кармические задачи.</span></div>
+<div class="bl"><span class="em">🌱</span><span>Она ищет Родовые системы, в которых есть возможность получить нужный опыт. Родовая программа всегда соответствует нашей личной карме.</span></div>
+<div class="bl"><span class="em">🌱</span><span>Воплощаясь в конкретный Род, человек решает его задачи и одновременно выполняет своё предназначение.</span></div>
+<div class="bl"><span class="em">🌱</span><span>Кармическое наследие души идеально вписывается в задачи Родовой системы. Ребёнок рождается именно у тех родителей, которые создадут лучшие условия для индивидуальных проработок и уроков.</span></div>
+<div class="bl"><span class="em">🌱</span><span>Судьбы всех членов Рода тесно переплетены и взаимосвязаны, и в большинстве случаев души рождаются в одной семье потому, что в прошлых жизнях они были связаны единой задачей. Теснее всего кармически связаны самые близкие: ребёнок-родитель, муж и жена, сестры и братья.</span></div>
+<h3 class="sl">3. Жизненные обстоятельства души</h3>
+<div class="bl"><span class="em">🍀</span><span>Душа также выбирает нацию, тело с его болячками, место и время рождения. Это даёт ей уникальные возможности и испытания, соответствующие её кармическому пути.</span></div>
+<div class="bl"><span class="em">🍀</span><span>Если ребёнок сирота, значит душа выбрала именно такой опыт.</span></div>
+<div class="bl"><span class="em">🍀</span><span>Иногда душа осознанно приходит в больном теле, в трудных условиях, или во время войны — таковы её личные задачи.</span></div>
+<div class="bl"><span class="em">🍀</span><span>А бывает так, что душа воплощается как урок для родителей (неизлечимо больной ребёнок), так ребёнок создаёт для родителей условия, в которых они будут учиться проявлять самые лучшие качества, и их души будут эволюционировать.</span></div>
+<h3 class="sl">4. Из кого состоит Родовая система</h3>
+<div class="bl"><span class="em">📍</span><span>Во многих древних культурах, таких как славянская, египетская, индийская, считалось, что на человека влияют семь прямых поколений предков. Это одно из значений слова «семья» (на ваше «Я» оказывают влияние 7 поколений).</span></div>
+<div class="bl"><span class="em">📍</span><span>Эти семь поколений состоят из 254 человек и включают только прямых предков — родителей, бабушек и дедушек (без братьев и сестёр, двоюродных и прочих).</span></div>
+<div class="bl"><span class="em">📍</span><span>Однако Родовая система шире и охватывает всех кровных родственников, а также супругов, приёмных детей и даже тех, кто влияет на Род — любовников, врагов и жертв. Эти связи создают кармические узлы и обязательства, которые могут влиять на потомков.</span></div>
+<h3 class="sl">5. Кто входит в Родовую систему и кто оказывает на неё влияние</h3>
+<div class="bl"><span class="em">✔️</span><span><b>1. Кровные родственники:</b> тот, кто родился в нашем роду, дети, родители, бабушки и дедушки, братья и сёстры. Также сюда относятся забытые или отвергнутые члены семьи, абортированные дети, о ком не принято говорить.</span></div>
+<div class="bl"><span class="em">✔️</span><span><b>2. Принятые в семью:</b> тот, кто вошёл в родовую систему через брак или усыновление.</span></div>
+<div class="bl"><span class="em">✔️</span><span><b>3. Кармические родственники:</b> люди, повлиявшие на наш род, как позитивно, так и негативно. Они могут быть спасителями или вредителями нашей семьи. Также сюда входят представители власти, учителя и философы, чья деятельность влияет на нашу фамильную судьбу.</span></div>
+<div class="bl"><span class="em">✔️</span><span><b>4. Эмоциональные родственники:</b> те, кто связан с нами через сильные эмоции, такие как верные друзья или даже враги. Сюда входят и сексуальные партнёры, которые вызывают эмоции.</span></div>
+<p>Родовая система складывается из множества взаимосвязей и взаимодействий, влияющих на наши жизни. И включает 4 группы людей.</p>
+<div class="imp"><span class="em">‼️</span><span>НО РОД — это только кровники и принятые.</span></div>
+<h3 class="sl">6. Важно ❗</h3>
+<div class="bl"><span class="em">⚜️</span><span>Каждый живущий ныне представитель своего Рода по закону родства имеет полное право и полномочия помогать своей семье. Вы являетесь представителем всех ваших предков, в вас течёт их кровь и сила.</span></div>
+<div class="bl"><span class="em">⚜️</span><span>Каждый из нас, ныне живущих представителей своего Рода, обладает силой и возможностями исцелять свой род, доделывать дела предков и восстанавливать то, что требует восстановления.</span></div>
+<div class="bl"><span class="em">⚜️</span><span>По праву ныне живущего представителя вы можете усиливать свой Род.</span></div>
+<h3 class="sl">7. Какие практики можно выполнять?</h3>
+<div class="bl"><span class="em">🔆</span><span><b>Прощение:</b> </span></div>
+<div class="bl sub"><span class="em">•</span><span>От имени обидчика попросить прощения: мы можем искренне попросить прощения за проступки предков, даже если не считаем себя лично ответственными за них.</span></div>
+<div class="bl sub"><span class="em">•</span><span>От имени обиженного простить: мы можем отпустить старые обиды и принять выбор предков, даже если они причинили кому-то боль.</span></div>
+<div class="bl sub"><span class="em">•</span><span>Возврат долгов: мы можем вернуть старые долги (материальные, моральные, духовные), которые не были отданы нашими предками.</span></div>
+<div class="bl"><span class="em">🔆</span><span><b>Прекращение негативных сценариев, очищение и исцеление Рода:</b> </span></div>
+<div class="bl sub"><span class="em">•</span><span>Мы можем разорвать круг повторяющихся негативных сценариев в своей семье (болезни, неудачи, конфликты).</span></div>
+<div class="bl sub"><span class="em">•</span><span>Исцеление родового негатива.</span></div>
+<div class="bl"><span class="em">🔆</span><span><b>Наполнение Рода силой:</b> </span></div>
+<div class="bl sub"><span class="em">•</span><span>Духовное развитие: занимаясь своим духовным ростом, мы наполняем энергией не только себя, но и весь свой Род.</span></div>
+<div class="bl sub"><span class="em">•</span><span>Передача позитивного опыта: живя осознанно, создавая счастливые отношения, реализуя свой потенциал, мы передаём этот позитивный опыт своим потомкам.</span></div>
+<div class="bl sub"><span class="em">•</span><span>Славление предков, обряды Родовые: через них вы можете получить силу, поддержку и защиту вашего Рода.</span></div>
+<p>Все эти практики оздоравливают вашу Родовую систему, Род становится сильнее и даёт вам больше энергии и своих ресурсов, так как вы полезный представитель и выполняете важную Роль.</p>
+<h3 class="sl">8. Правила работы с Родовой системой</h3>
+<div class="bl"><span class="em">❌</span><span><b>Запрет на вмешательство:</b> запрещено вмешиваться в жизнь ныне живущих родственников без их запроса, даже с благими намерениями. Помощь живущим родственникам (избавление от болезней, нищеты, негативных воздействий) с помощью энергетических инструментов возможна только с их согласия. Исключение: муж и дети.</span></div>
+<div class="bl"><span class="em">‼️</span><span><b>Из первого правила вытекает уважение свободы воли:</b> каждый человек (душа) сам выбирает свой жизненный путь и способы решения проблем. Вмешательство в этот процесс нарушает свободу воли и недопустимо. Даже если этот человек — ваш родственник. Нельзя навязывать свой путь другим.</span></div>
+<p class="ex">Пример: если сестра страдает от алкоголизма, нельзя без её согласия проводить энергетические чистки или иные воздействия. Это её личный путь и её выбор.</p>
+<div class="bl"><span class="em">✅</span><span>Работа с душами умерших предков (находящихся в «светлой Нави»), завершивших земное воплощение: работать можно, в частности, с их негативными сценариями. В вас течёт их кровь. Они уже здесь закончили дела, и вы никак не сможете повлиять на их карму. Однако вы можете поработать с тем следом, который они оставили в вашей Родовой системе.</span></div>
+<label class="done"><input type="checkbox" data-done="l2"><span>Урок пройден</span></label></section>
+<section class="topic" id="l3"><h2>🧭 3. Миссии в Роду</h2>
+
+<h3 class="sl">1. Как родовая система может оказывать на нас влияние?</h3>
+<div class="bl"><span class="em">1.</span><span><b>Физически —</b> то есть генетически, наследственные плюсы и минусы по здоровью.</span></div>
+<div class="bl"><span class="em">2.</span><span><b>Психологически —</b> через воспитание, воспринимаем программы поведения, копируем черты характера.</span></div>
+<div class="bl"><span class="em">3.</span><span><b>Энергетически —</b> Родовой эгрегор включает энергии и силу всех членов рода, когда-либо живших.</span></div>
+<div class="bl"><span class="em">4.</span><span><b>Карма Рода —</b> все поступки, мысли и события, происходившие с каждым членом рода.</span></div>
+<h3 class="sl">2. 🧬 Структура Рода</h3>
+<p>За каждым человеком стоят два крыла 🪽 Рода: Род матери и Род отца.</p>
+<p>Мы постоянно находимся под влиянием этих Родов. Поэтому влияния могут быть как со знаком ➕, так и со знаком ➖.</p>
+<div class="bl"><span class="em">➕</span><span>Таланты, дары, удача, здоровье.</span></div>
+<div class="bl"><span class="em">➖</span><span>Негативные программы, карма.</span></div>
+<h3 class="sl">3. 🔶 Миссии в Роду</h3>
+<p>У каждого человека, пришедшего в Род, есть своё кармическое предназначение, и исходя из него ему даётся сила, ресурсы, богатство, знания, здоровье.</p>
+<div class="bl"><span class="em">1.</span><span>Старейшина Рода</span></div>
+<div class="bl"><span class="em">2.</span><span>Берегиня</span></div>
+<div class="bl"><span class="em">3.</span><span>Продолжатели Рода</span></div>
+<div class="bl"><span class="em">4.</span><span>Слава Рода</span></div>
+<div class="bl"><span class="em">5.</span><span>Богатство Рода</span></div>
+<div class="bl"><span class="em">6.</span><span>Знания Рода</span></div>
+<div class="bl"><span class="em">7.</span><span>Целители Рода</span></div>
+<div class="bl"><span class="em">8.</span><span>Воины Рода</span></div>
+<div class="bl"><span class="em">9.</span><span>Жертвы Рода</span></div>
+<h3 class="sl">4. 🎩 Старейшина и Берегиня</h3>
+<p>Это люди с самым сильным энергетическим потенциалом, и они энергетически соединены с каждым человеком в Роду.</p>
+<div class="bl"><span class="em">1.</span><span>Это люди, как правило, с сильным авторитетом.</span></div>
+<div class="bl"><span class="em">2.</span><span>К ним обращаются за советами, их слушают. И это необязательно люди в преклонном возрасте.</span></div>
+<div class="bl"><span class="em">3.</span><span>За спиной Старейшины или Берегини стоит весь Род, вся Сила Рода, все знания Рода, накопленные веками.</span></div>
+<p>Они могут распределять энергии богатства и удачи в роду.</p>
+<p>И чем ближе она/он держит к себе любого человека из Рода, тем лучше его жизнь. И наоборот. Если в «сердцах» они пожелают кому-то что-то плохое, то сила будет поистине разрушительной.</p>
+<div class="bl"><span class="em">4.</span><span>Если вы поняли, кто из вашего Рода Берегиня или Старейшина, налаживайте контакты, спрашивайте советов: такие люди, сами того не ведая, могут направлять энергию Рода в нужное русло.</span></div>
+<h3 class="sl">5. 🚸 Продолжатели Рода</h3>
+<div class="bl"><span class="em">1.</span><span>Это могут быть и мужчины, и женщины, они составляют основу Тела Рода, генофонд.</span></div>
+<div class="bl"><span class="em">2.</span><span>Они, как правило, ставят детей на первое место.</span></div>
+<div class="bl"><span class="em">3.</span><span>Как пример, это мать, любящая своих детей, воспитывающая.</span></div>
+<div class="bl"><span class="em">4.</span><span>Или человек, молящийся ежедневно о своих родственниках, предках.</span></div>
+<div class="bl"><span class="em">5.</span><span>Им даётся изначально большая сила Рода и здоровье, чтобы они сохранили то, что наработано в Роду.</span></div>
+<div class="bl"><span class="em">6.</span><span>Это их основная задача. Рожать, воспитывать детей, любить их, давать им заботу.</span></div>
+<h3 class="sl">7. 🌟 Слава Рода</h3>
+<p>Миссия: продвигать свой Род в структуре НаРода.</p>
+<div class="bl"><span class="em">1.</span><span>Эти люди несут Славу и известность.</span></div>
+<div class="bl"><span class="em">2.</span><span>Это известные члены вашего Рода.</span></div>
+<div class="bl"><span class="em">3.</span><span>Они обретают добрую славу и известность и тем самым поднимают Род на более высокую ступеньку иерархии Родов.</span></div>
+<p>Это талантливые и предприимчивые люди, которые стали известны. Они славят Род.</p>
+<h3 class="sl">8. 💰 Богатство Рода</h3>
+<p>Миссия: обогащать Род материальными ресурсами.</p>
+<p>Роль: накапливать материальные энергии и направлять их на благо Рода и человечества в целом.</p>
+<p>Например, бизнесмен богатеет, обеспечивает благосостоянием свою семью, а также жертвует часть средств на благотворительность, что повышает духовный потенциал Рода.</p>
+<h3 class="sl">9. 📚 Знания Рода</h3>
+<p>Хранители знаний обогащают родовую систему новым опытом, знаниями, впечатлениями, пропущенными через себя.</p>
+<div class="bl"><span class="em">1.</span><span>Это путешественники, они часто уезжают далеко или даже меняют страну.</span></div>
+<div class="bl"><span class="em">2.</span><span>Это учителя.</span></div>
+<div class="bl"><span class="em">3.</span><span>Это вечные студенты, исследователи.</span></div>
+<div class="bl"><span class="em">4.</span><span>Они расширяют географические и энергетические ресурсы, добывают новые знания и умения.</span></div>
+<div class="bl"><span class="em">5.</span><span>Они, как правило, очень любят воспитывать и учить.</span></div>
+<div class="bl"><span class="em">6.</span><span>Люди живого пространства изначально имеют небольшую энергетическую поддержку от Рода, чтобы не были привязаны к месту. Одна из задач — посеять семена Рода на новом месте.</span></div>
+<h3 class="sl">10. 🌿 Целители Рода</h3>
+<p>Целители — это забота о психическом и физическом здоровье членов Рода.</p>
+<p>Часто им выпадает судьба заботы о престарелых родственниках, инвалидах, либо происходят ситуации, когда возникает необходимость заботы о здоровье.</p>
+<div class="bl"><span class="em">1.</span><span>Это врачи как традиционной, так и нетрадиционной медицины.</span></div>
+<div class="bl"><span class="em">2.</span><span>Это знахари, часто их тянет в энергетические практики.</span></div>
+<div class="bl"><span class="em">3.</span><span>Психологи и люди «жилетки» тоже часто несут в себе эту миссию.</span></div>
+<div class="bl"><span class="em">4.</span><span>Целители изначально имеют большую энергетическую поддержку от Рода. Они энергичны и способны помогать не только своим, но и другим людям.</span></div>
+<p>Чтобы получить Силу Рода, сначала помогать членам своего Рода.</p>
+<h3 class="sl">11. 🥷 Воины Рода</h3>
+<p>Борцы — это сложные, часто конфликтные люди.</p>
+<p>Это вечные борцы за справедливость. Любят судиться. Делить наследство. Могут наказывать.</p>
+<p>Очень ревностно относятся к своим, не любят чужаков. Отстаивают границы с соседями.</p>
+<p>При этом также любят выгодные знакомства и часто сами заводят новые знакомства.</p>
+<p>Однако стоит чужаку нарушить границы, возникает конфликт. Сами члены рода не особо любят борцов за критиканство и сварливость.</p>
+<div class="bl"><span class="em">1.</span><span>Это часто начальники, часто работают в госструктурах.</span></div>
+<div class="bl"><span class="em">2.</span><span>Военные.</span></div>
+<div class="bl"><span class="em">3.</span><span>Юристы и любители посудиться за справедливость.</span></div>
+<div class="bl"><span class="em">4.</span><span>Но могут быть и других профессий.</span></div>
+<p>Они имеют большую энергетическую поддержку от Рода. Они здоровы изначально. Конфликты их как будто закаляют.</p>
+<p>Чтобы получить Силу Рода, нужно отстаивать интересы родни, а не нести семейный раздор.</p>
+<h3 class="sl">12. 🧎 Жертвы Рода</h3>
+<p>Они, как правило, есть в каждом действующем роду в текущий момент.</p>
+<p>Это тот человек, который живёт неправильной жизнью:</p>
+<div class="bl"><span class="em">💥</span><span>злословит</span></div>
+<div class="bl"><span class="em">💥</span><span>выпивает</span></div>
+<div class="bl"><span class="em">💥</span><span>обижает детей и взрослых</span></div>
+<div class="bl"><span class="em">💥</span><span>не работает или страдает тяжёлой болезнью</span></div>
+<div class="bl"><span class="em">💥</span><span>живёт в нищете, невезучий по жизни</span></div>
+<div class="bl"><span class="em">💥</span><span>к которому пристают все несчастья</span></div>
+<div class="bl"><span class="em">💥</span><span>иногда бездетный</span></div>
+<div class="bl"><span class="em">💥</span><span>много раз замужем или одинок</span></div>
+<p>Такая фигура важна в каждом Роду, и человек перед рождением знал, что будет жертвой Рода: был согласен забирать на себя основной негатив Рода и дать возможность другим членам Рода без отягощения приносить в Род удачу и ресурсы.</p>
+<p>Если жертвы нет, негатив идёт по членам Рода. Можно облегчить судьбу чистками.</p>
+<div class="bl"><span class="em">‼️</span><span><b>Важно:</b> Жертва Рода очищает путь своим детям в прохождении своих миссий. Жертву нельзя осуждать, только благодарить и просить дать этому человеку сил и терпения!</span></div>
+<h3 class="sl">13. ➖ Проживание своих ролей в минусе</h3>
+<div class="bl"><span class="em">❌</span><span>Отказ от своей миссии сильно ослабляет Род и самого человека. Начинают страдать все сферы жизни, например:</span></div>
+<div class="bl"><span class="em">1.</span><span>Берегиня и старейшины, отказавшиеся от Рода, ослабят и себя, и Род.</span></div>
+<div class="bl"><span class="em">2.</span><span>Продолжатели Рода — антимиссия: чайлдфри, отказ от детей.</span></div>
+<div class="bl"><span class="em">3.</span><span>Слава Рода — позор или полный отказ от выхода в люди.</span></div>
+<div class="bl"><span class="em">4.</span><span>Хранители знаний — деградация, отказ от развития.</span></div>
+<div class="bl"><span class="em">5.</span><span>Богатство Рода — растраты, лень, жадность.</span></div>
+<div class="bl"><span class="em">6.</span><span>Целители — отказ от заботы, убийство.</span></div>
+<div class="bl"><span class="em">7.</span><span>Воины — война между своими.</span></div>
+<div class="bl"><span class="em">8.</span><span>Жертвы — им можно всё.</span></div>
+<p>Роли могут совмещаться. Либо, выполнив одну миссию, приступать к другой.</p>
+<p>Если вы не справляетесь с Ролью, можно перейти или добавить другую Роль, сделав прошение Роду. Но нужно будет взять обязательства новой Роли.</p>
+<h3 class="sl">14. ☀️ Что можно получить от Рода и как?</h3>
+<div class="bl"><span class="em">1.</span><span>Защиту</span></div>
+<div class="bl"><span class="em">2.</span><span>Таланты и способности</span></div>
+<div class="bl"><span class="em">3.</span><span>Силу тела</span></div>
+<div class="bl"><span class="em">4.</span><span>Характер</span></div>
+<div class="bl"><span class="em">5.</span><span>Сильную энергетику</span></div>
+<p>Для этого НУЖНО:</p>
+<div class="bl"><span class="em">1.</span><span>Благодарить, славить РОД</span></div>
+<div class="bl"><span class="em">2.</span><span>Развивать таланты</span></div>
+<div class="bl"><span class="em">3.</span><span>Выполнять миссию Рода</span></div>
+<div class="bl"><span class="em">4.</span><span>Хорошие отношения с родней</span></div>
+<div class="bl"><span class="em">5.</span><span>Укрепление тела (наследство Рода)</span></div>
+<div class="bl"><span class="em">6.</span><span>Строить дом</span></div>
+<div class="bl"><span class="em">7.</span><span>Рожать детей</span></div>
+<div class="bl"><span class="em">8.</span><span>Сажать деревья</span></div>
+<div class="bl"><span class="em">9.</span><span>Чистить негатив</span></div>
+<div class="bl"><span class="em">✅</span><span>Чем больше предков выполняли свои роли, совершали добрые поступки, развивались духовно, жили по совести и чести, тем сильнее РОД.</span></div>
+<label class="done"><input type="checkbox" data-done="l3"><span>Урок пройден</span></label></section>
+<section class="topic" id="l4"><h2>🌑 4. Родовой негатив</h2>
+
+<h3 class="sl">1. ⛔ Признаки родового негатива</h3>
+<div class="bl"><span class="em">1.</span><span>Любые убийства, самоубийства в Роду. В том числе по неосторожности (например, ДТП, и кто-то погиб), военные действия.</span></div>
+<div class="bl"><span class="em">2.</span><span>Алкоголизм, наркомания, игромания. Потакание порочным желаниям.</span></div>
+<div class="bl"><span class="em">3.</span><span>Отказ от своих детей. В том числе аборты.</span></div>
+<div class="bl"><span class="em">4.</span><span>Отказ от своих предков, стариков на произвол судьбы.</span></div>
+<div class="bl"><span class="em">5.</span><span>Проблемы с законом, тюрьма.</span></div>
+<div class="bl"><span class="em">6.</span><span>Занятие чёрной магией.</span></div>
+<div class="bl"><span class="em">7.</span><span>Измены и предательство (родины, жены).</span></div>
+<div class="bl"><span class="em">8.</span><span>Разрушение чужой семьи, увести мужа или жену.</span></div>
+<div class="bl"><span class="em">9.</span><span>Садизм к людям и животным. В том числе сексуальное и психологическое насилие.</span></div>
+<div class="bl"><span class="em">10.</span><span>Незавершённые дела: невыполненные обещания, невысказанные чувства, непрощённые обиды создают блоки в родовой энергии.</span></div>
+<p>Все эти ситуации говорят о тяжёлой родовой карме, которая ослабляет родовую систему.</p>
+<h3 class="sl">2. Как проявляется в Роду тяжёлая родовая карма</h3>
+<div class="bl"><span class="em">1.</span><span>Наличие в Роду сумасшедших.</span></div>
+<div class="bl"><span class="em">2.</span><span>Бесплодие.</span></div>
+<div class="bl"><span class="em">3.</span><span>Дети с врождёнными болезнями или физическими дефектами.</span></div>
+<div class="bl"><span class="em">4.</span><span>Ранние смерти, вдовство.</span></div>
+<div class="bl"><span class="em">5.</span><span>Наличие в Роду неизлечимых заболеваний. Инвалидность.</span></div>
+<div class="bl"><span class="em">6.</span><span>Бродяжничество. Сильная бедность.</span></div>
+<div class="bl"><span class="em">7.</span><span>Конфликтные браки и измены в семье.</span></div>
+<div class="bl"><span class="em">8.</span><span>Обман и предательство самых близких.</span></div>
+<div class="bl"><span class="em">9.</span><span>Войны за наследство.</span></div>
+<div class="bl"><span class="em">10.</span><span>Дети неблагодарные или неблагополучные вырастают.</span></div>
+<div class="bl"><span class="em">11.</span><span>Зависимости.</span></div>
+<div class="imp"><span class="em">‼️</span><span>Если в Роду один признак повторяется больше, чем в двух поколениях, это уже не просто негатив, это значит, Род гибнет.</span></div>
+<p>Все это — видимые проявления.</p>
+<h3 class="sl">3. Карма Народа</h3>
+<div class="bl"><span class="em">📌</span><span>Ваш Род входит в систему Родов, которая называется Народ.</span></div>
+<p>Здесь негатив, который влияет и на ваш Род:</p>
+<div class="bl"><span class="em">1.</span><span>Исторические события — перевороты, экономические кризисы.</span></div>
+<div class="bl"><span class="em">2.</span><span>Войны.</span></div>
+<div class="bl"><span class="em">3.</span><span>Раскулачивания, конфискация имущества.</span></div>
+<div class="bl"><span class="em">4.</span><span>Рабство, крепостничество.</span></div>
+<p>Но даже в самые тёмные времена есть Роды, которые выживают и даже становятся сильнее.</p>
+<p>А есть Роды, которые полностью вымирают в тяжёлые периоды.</p>
+<div class="bl"><span class="em">⛔</span><span>Полностью такой вид негатива убрать не получится, но можно ослабить влияние кармы народа.</span></div>
+<h3 class="sl">4. Наведённый негатив на Род</h3>
+<p>Негатив, наведённый специально на Род, делают тоже не с пустого места — часто так проявляется отработка негативной кармы Рода.</p>
+<div class="bl"><span class="em">1.</span><span><b>Колдовство.</b> И тут вариантов может быть множество — порчи, венцы и другое колдовство:</span></div>
+<div class="bl sub"><span class="em">•</span><span>на одиночество</span></div>
+<div class="bl sub"><span class="em">•</span><span>пьянство</span></div>
+<div class="bl sub"><span class="em">•</span><span>вырождение Рода</span></div>
+<div class="bl sub"><span class="em">•</span><span>вдовство</span></div>
+<div class="bl sub"><span class="em">•</span><span>нищету</span></div>
+<div class="bl sub"><span class="em">•</span><span>смерть в раннем возрасте и др.</span></div>
+<div class="bl"><span class="em">2.</span><span><b>Проклятье на Род</b> — это не относится к магии, но это сильное энергетическое воздействие, когда проклинающий вкладывает всю боль и ненависть в своё слово и направляет негативное пожелание в недруга.</span></div>
+<p>Проклятье также может воздействовать на Род и его членов и приводить к болезням, нищете, зависимостям, ранней смертности и пр.</p>
+<div class="bl"><span class="em">✅</span><span>Убрать этот негатив можно, но только с конкретного человека по его запросу (исключение — муж, дети).</span></div>
+<h3 class="sl">5. 🧟 Родовые сущности</h3>
+<p>Негативные энергии, слабость и вообще низкие вибрации — это привлекательное «место обитания» сущностей низшего астрала.</p>
+<p>Слабое Родовое Дерево 🌳 — очень привлекательная пища для духов нижнего мира. Точно так же, как на слабом садовом дереве начинают паразитировать грибы, вредители, так и в Родовом древе могут присутствовать энергопаразиты.</p>
+<p>Чем слабее Род, тем легче на нём паразитировать.</p>
+<p>Как приходят эти сущности в Родовую систему?</p>
+<div class="bl"><span class="em">1.</span><span>Их могут подсаживать специально при магическом воздействии на Род или на отдельных его членов. Если члены Рода не снимут с себя сущностей, то в момент смерти сущность может уйти в родовую систему и портить жизнь потомкам.</span></div>
+<div class="bl"><span class="em">2.</span><span>Лярвы и мафлоки (в том числе алкоголизма) в момент смерти также могут уйти в родовую систему.</span></div>
+<div class="bl"><span class="em">3.</span><span>Если самоубийца был одержим, то сущность также может перейти в Род.</span></div>
+<div class="bl"><span class="em">4.</span><span>Предки (колдуны, шаманы), заключавшие контракты с сущностями на крови, также этот контракт оставили в Родовой системе.</span></div>
+<div class="bl"><span class="em">✅</span><span>Избавиться можно только от той сущности, которая непосредственно оказывает влияние на вас, ваше здоровье и жизнь, то есть связана с вами энергетически.</span></div>
+<h3 class="sl">6. Исключённые из Рода</h3>
+<div class="bl"><span class="em">❌</span><span>Исключённые — это те, кого забыли, изгнали, отвергли, осудили, обвинили и считают плохими, недостойными, предателями.</span></div>
+<p>Бывают родственники, которые осуждают своих членов рода, у которых судьба не сложилась, кто был неуспешен, одинок, говоря о них: «он/она не из наших, из чужого Рода», тем самым вызывая пренебрежение к этому человеку, не хотя вспоминают о таких, а то и вовсе забывают.</p>
+<p>Все члены рода имеют равные права на то, чтобы в нём состоять.</p>
+<div class="bl"><span class="em">♦️</span><span>В том числе исключённые: мертворождённые и абортированные дети.</span></div>
+<div class="bl"><span class="em">♦️</span><span>Члены семьи, специально забытые (преступники, юродивые, репрессированные и пр.).</span></div>
+<div class="bl"><span class="em">♦️</span><span>Самоубийцы — это самоисключённые из Рода. Они расторгают договор с родовой системой по своей воле.</span></div>
+<p>Если происходит исключение члена Рода, то Родовая система воспроизводит его судьбу и заставляет потомков проживать не только свои задачи, но и те, что были у исключённых.</p>
+<p>Исключённые в роду — это причина неудач в карьере, тяжёлого заболевания, может привести кого-то из членов семьи к алкогольной или наркотической зависимости, одиночеству.</p>
+<div class="imp"><span class="em">✅</span><span>Поэтому исключённых нужно включать в Родовую систему.</span></div>
+<h3 class="sl">7. 🔔 Диагностика родового негатива</h3>
+<p>Как же определить наличие Родового негатива?</p>
+<p>Ответьте на эти вопросы:</p>
+<div class="bl"><span class="em">1.</span><span>Аборты.</span></div>
+<div class="bl"><span class="em">2.</span><span>Бесплодие, выкидыши, замершие беременности, невынашиваемость.</span></div>
+<div class="bl"><span class="em">3.</span><span>Рождение больных детей.</span></div>
+<div class="bl"><span class="em">4.</span><span>Смерти в младенчестве.</span></div>
+<div class="bl"><span class="em">5.</span><span>Браки по залёту, ваш или родителей.</span></div>
+<div class="bl"><span class="em">6.</span><span>Развод ваш или родителей.</span></div>
+<div class="bl"><span class="em">7.</span><span>Проблемы с законом ваши или ваших предков.</span></div>
+<div class="bl"><span class="em">8.</span><span>Старая дева, вечный холостяк, судьба одиночки — ваша и у кого-то из вашего Рода.</span></div>
+<div class="bl"><span class="em">9.</span><span>Плохие отношения с роднёй, вражда между братьями, сёстрами.</span></div>
+<div class="bl"><span class="em">10.</span><span>Алкоголики, игроманы, наркоманы в семье.</span></div>
+<div class="bl"><span class="em">11.</span><span>Убийства и самоубийства в Роду.</span></div>
+<div class="bl"><span class="em">12.</span><span>Рождение ребёнка от насильника.</span></div>
+<div class="bl"><span class="em">13.</span><span>Закрытые дороги, ничего не получается, как у вас, так и у кого-то из ваших предков.</span></div>
+<div class="bl"><span class="em">14.</span><span>У вас и у ваших родителей плохое материальное положение. Уровень — выживание.</span></div>
+<div class="bl"><span class="em">15.</span><span>Если вы родились в бурю или в зоне военного конфликта.</span></div>
+<div class="bl"><span class="em">16.</span><span>Тяжёлые испытания: потери близких, аварии, уход за тяжелобольными и пр.</span></div>
+<div class="bl"><span class="em">17.</span><span>Ранние смерти ваших близких.</span></div>
+<div class="bl"><span class="em">18.</span><span>Тяжёлые болезни у вас или в вашей семье.</span></div>
+<div class="bl"><span class="em">19.</span><span>Шизофрения и прочая психиатрия.</span></div>
+<div class="bl"><span class="em">20.</span><span>Альцгеймер и деменция у ваших родителей, бабушек.</span></div>
+<div class="imp"><span class="em">‼️</span><span>Внимание! Если вышеперечисленное прослеживается не только у вас, но и у родственников — это указывает на тяжёлую карму Рода. Такое бремя — это совокупность накопившегося негатива от деяний ваших предков, от негативного воздействия на ваш Род, колдовства, проклятий, только в разном процентном соотношении.</span></div>
+<h3 class="sl">8. Как будем убирать родовой негатив?</h3>
+<div class="bl"><span class="em">✅</span><span>Схема полной чистки Рода следующая:</span></div>
+<div class="bl"><span class="em">1.</span><span>Убираем влияние сущностей.</span></div>
+<div class="bl"><span class="em">2.</span><span>Убираем магию, влияющую на вашу жизнь.</span></div>
+<div class="bl"><span class="em">3.</span><span>Убираем проклятья.</span></div>
+<div class="bl"><span class="em">4.</span><span>Облегчаем отработки негативных программ от деяний ваших предков.</span></div>
+<div class="bl"><span class="em">5.</span><span>Наполняемся родовой силой.</span></div>
+<div class="bl"><span class="em">6.</span><span>Ставим защиту.</span></div>
+<label class="done"><input type="checkbox" data-done="l4"><span>Урок пройден</span></label></section>
+<section class="topic" id="l5"><h2>🪽 5. Практика «Крылья Рода»</h2>
+<p class="vkl"><a class="vkbtn" href="https://vk.ru/club237151242?z=video-237151242_456239020" target="_blank" rel="noopener">▶ Смотреть практику</a></p>
+<h3 class="sl">Что нужно для практики</h3>
+<div class="bl"><span class="em">1.</span><span>Свеча</span></div>
+<div class="bl"><span class="em">2.</span><span>Лист</span></div>
+<div class="bl"><span class="em">3.</span><span>Карандаши (синий, красный)</span></div>
+<div class="imp"><span class="em">✨</span><span>В результате этой практики вы укрепите связь с вашей родовой системой и сможете более эффективно работать с дальнейшими техниками.</span></div>
+<h3 class="sl">Как и когда делать</h3>
+<p>Это очень сильная практика, её можно делать регулярно:</p>
+<div class="bl"><span class="em">1.</span><span>Обращение к Роду через эту практику можно делать в любой день недели, в любой лунный день.</span></div>
+<div class="bl"><span class="em">2.</span><span>Эту практику нужно сделать в течение 7 дней подряд либо через день, но 7 раз.</span></div>
+<div class="bl"><span class="em">3.</span><span>Все оговоры переписать и читать только с написанного своей рукой.</span></div>
+<p>Вы можете обращаться и подключаться к Роду тогда, когда вам нужно! Вы — член Рода по праву рождения. Между вашей душой и Родовой системой был заключён договор на ваше воплощение. Поэтому вы как член Рода получаете не только миссии и задачи, но и силу, защиту и поддержку Рода.</p>
+<p>Событийный план начнёт двигаться, и результаты начнут проявляться уже довольно быстро.</p>
+<p>Чем больше вы даёте энергии своей Родовой системе, тем больше вас замечает Род и посылает в ответ свою энергию. Это ваш родовой эгрегор, он для вас дружественный, и вы можете подключаться к нему для разных целей.</p>
+<p>256 предков, которых мы прорисуем, — это ваши прямые кровные родственники семи поколений. Вы имеете право по крови работать с ними, это ваша личная ветка. Это огромная работа с энергиями Рода на тонком плане.</p>
+<h3 class="sl">Что рисуем</h3>
+<div class="bl"><span class="em">🔴</span><span><b>Красный карандаш —</b> все мужчины в Роду.</span></div>
+<div class="bl"><span class="em">🔵</span><span><b>Голубой карандаш —</b> все женщины в Роду.</span></div>
+<div class="bl"><span class="em">1.</span><span><b>Ряд 1 —</b> 128 предков</span></div>
+<div class="bl"><span class="em">2.</span><span><b>Ряд 2 —</b> 64 предка</span></div>
+<div class="bl"><span class="em">3.</span><span><b>Ряд 3 —</b> 32 предка</span></div>
+<div class="bl"><span class="em">4.</span><span><b>Ряд 4 —</b> 16 предков</span></div>
+<div class="bl"><span class="em">5.</span><span><b>Ряд 5 —</b> 8 предков</span></div>
+<div class="bl"><span class="em">6.</span><span><b>Ряд 6 —</b> 4 предка</span></div>
+<div class="bl"><span class="em">7.</span><span><b>Ряд 7 —</b> мама и папа</span></div>
+<div class="bl"><span class="em">8.</span><span><b>Ряд 8 —</b> вы</span></div>
+<p>Изначально разметку можно сделать простым карандашом, потом начать закрашивать.</p>
+<p>Чем ближе предки к вам, тем больше они по размеру: каждый ряд увеличивайте размер кружков.</p>
+<p>Левая рука — Род матери, правая рука — Род отца. Поэтому начинаем раскрас с женского (голубого) цвета, заканчиваем красным — мужским, слева направо.</p>
+<p>Вносите цвет со всей душой и любовью: вы работаете со своим Родом, даёте свою энергию и обращаете свой Род на себя.</p>
+<p>Когда рисуете кружки (предков), не торопитесь! Уделите достаточное время: вы материализуете на листе свой Род.</p>
+<p>Можно и нужно разговаривать со своим Родом, проговаривать в это время то, что идёт от вашей Души и Сердца:</p>
+<p class="ex">«Я вижу тебя, благодарю тебя за жизнь, за защиту, за здоровье, за счастливые моменты! Я принимаю твою силу, я принимаю твою защиту!»</p>
+<h3 class="sl">На что обращать внимание</h3>
+<p>Во время практики важно замечать и отслеживать, в каких местах прорисовки предка или канала возникали «неполадки». Как это может проявляться:</p>
+<div class="bl sub"><span class="em">•</span><span>путаница в цвете</span></div>
+<div class="bl sub"><span class="em">•</span><span>сломался карандаш в определённом месте</span></div>
+<div class="bl sub"><span class="em">•</span><span>изменение в теле (устала рука, где-то кольнуло, что-то заболело, затекло, зачесалось)</span></div>
+<div class="bl sub"><span class="em">•</span><span>кто-то отвлёк</span></div>
+<div class="bl sub"><span class="em">•</span><span>место, которое пропустили или поторопились</span></div>
+<div class="imp"><span class="em">‼️</span><span>Такие «неполадки» указывают на родовой негатив.</span></div>
+<p>В это время можно сразу уделить внимание этому предку и проговорить слова благодарности:</p>
+<p class="ex">«Я вижу тебя, благодарю тебя! Я принимаю твою силу, я принимаю твою защиту! Я исцеляю тебя».</p>
+<p>Можно сделать где-то пометки, чтобы потом в практике очищения уделить больше внимания этому предку. Даже когда вы всё прорисовали, можно добавлять цвет там, где плохо прорисовано.</p>
+<p>Когда доходите до родственников, про которых знаете, знаете их имена, можно здороваться с ними, благодарить, вспомнить яркие моменты из детства.</p>
+<p>Когда прорисовываете свой шарик, благодарите за всё: за опыт, за жизнь. Ваш кружок должен быть самым большим.</p>
+<p>Это общие рекомендации к практике, но вы можете раскрыть свою Душу и дать волю эмоциям и чувствам, говорить то, что исходит изнутри.</p>
+<p>В конце прочертите усиление канала матери и отца к вам.</p>
+<h3 class="sl">Этапы практики</h3>
+<p>Подготовка: снимаем все кольца, растираем руки до жара над огнём.</p>
+<div class="bl"><span class="em">1.</span><span><b>Зажигаем свечу.</b> Оговор:</span></div>
+<p class="ex">«Свеча, нарекаю тебя свечой сопровождения и активатором светлой силы стихии огня. Свеча, передай мне (имя) мощной энергии и силы огненной для дела благого! Благодарю тебя, да будет так! Обряд начался! Во благо!»</p>
+<div class="bl"><span class="em">2.</span><span><b>Начинаем чертить Крылья Рода.</b> Так вы визуально и на материальном носителе даёте понять своему мозгу и осознать, куда направлять своё внимание. Нарисовать своё древо можно один раз и использовать его многократно.</span></div>
+<div class="imp"><span class="em">👀</span><span>Внимание! В этой практике вы стоите лицом к своему Роду.</span></div>
+<div class="bl"><span class="em">3.</span><span><b>Исправления в рисунке</b> делайте примерно с таким оговором:</span></div>
+<p class="ex">«Правлю, выправляю родовой канал (если линию правите) / своего предка (если шарик), любовью и благодарностью наполняю! Светом этой свечи исцеляю (умыть правку огнём). Во благо! Слава моему Роду!»</p>
+<div class="bl"><span class="em">4.</span><span><b>Когда закончили работу с Крыльями,</b> приступаем к подключению к Роду. В это время нужно отключиться от всех мыслей. Смотрим на огонь свечи, читаем оговор:</span></div>
+<p class="ex">«Род мой Благословенный, в лице всех моих предков, прими мою искреннюю благодарность за моё тело, здоровье, благополучие и за моё место и право воплотиться здесь.»</p>
+<p>Гладим рисунок Рода снизу вверх — от вашего узла к предкам, умываем огнём свечи родовые связи и говорим оговор:</p>
+<p class="ex">«Я посылаю по родовым каналам любовь и благодарность всем моим предкам по Роду Отца и Матери.»</p>
+<p>Гладим рисунок Рода сверху вниз, от предков к вам, умываем огнём свечи родовые связи, с оговором:</p>
+<p class="ex">«Мой древний, мудрый, величественный Род, я благодарю тебя за опыт моих предков, за их таланты, знания, силу и способность к выживанию. И я с благодарностью принимаю все ресурсы моих предков для того, чтобы передать своим детям. Я смиренно прошу подключить меня к потокам родовой силы и благословить меня на здоровье, изобилие, счастье, удачу и любовь.»</p>
+<p class="ex">«Я готов(а) принять и принимаю всё самое ценное, необходимое и благое из моего Рода, накапливаю свой опыт и передаю в будущие жизни эти благостные ресурсы.»</p>
+<p>Положите обе руки на Крылья Рода, произнесите оговор:</p>
+<p class="ex">«Я вижу и осознаю все родовые каналы и связи и подключаюсь к мудрости и светлой здоровой силе моего Рода. Я обещаю стать достойным членом Рода и преумножать силу моего славного Рода и добрых предков.»</p>
+<div class="bl"><span class="em">5.</span><span><b>Посмотрите на свой рисунок,</b> осознавая всю глубину времени через своих предков, и произнесите оговор:</span></div>
+<p class="ex">«Отправляю по родовым каналам Свет, Любовь и благодарность всем своим предкам и родичам. Пусть Род мой крепнет и становится сильнее! Храни, Творец, мой Славный Род!»</p>
+<p class="ex">«Пусть все ресурсы, дары и таланты преумножаются в жизнях всех ныне живущих представителей моего Рода. Пусть Любовь и Благодарность процветают в моём Роду. С благодарностью за Дар Жизни я обнимаю и благословляю Любовью весь мой Род в лице всех моих предков! Во благо!»</p>
+<div class="imp"><span class="em">💛</span><span>Углубитесь после практики в эту схему: это всё реальные люди, каждый кружок — это человек, а в вас течёт кровь этих людей, у вас есть энергия всех этих людей, и вы можете подключаться к своему Роду по праву крови.</span></div>
+<label class="done"><input type="checkbox" data-done="l5"><span>Урок пройден</span></label></section>
+<section class="topic" id="l6"><h2>🔥 6. Практика. Родовой отжиг</h2>
+<p class="vkl"><a class="vkbtn" href="https://vk.ru/club237151242?z=video-237151242_456239018" target="_blank" rel="noopener">▶ Смотреть практику</a></p>
+<h3 class="sl">Подготовка</h3>
+<div class="bl"><span class="em">1.</span><span><b>Очистите себя:</b> примите душ или ванну с солью, чтобы смыть с себя негативную энергию. Наденьте чистую одежду из натуральной ткани.</span></div>
+<div class="bl"><span class="em">2.</span><span><b>Подготовьте помещение:</b> проветрите комнату, где будете проводить ритуал. Застелите стол скатертью или бумагой. Можно работать на алтаре.</span></div>
+<p>Что понадобится:</p>
+<div class="bl sub"><span class="em">•</span><span>ваша схема Крыльев Рода</span></div>
+<div class="bl sub"><span class="em">•</span><span>1 свеча сопровождения и 2–3 рабочие свечи</span></div>
+<div class="bl sub"><span class="em">•</span><span>соль поваренная или морская</span></div>
+<div class="bl sub"><span class="em">•</span><span>при желании травы: полынь, крапива, зверобой, шалфей, чистотел, чертополох, пижма, тысячелистник, хвойные</span></div>
+<div class="bl sub"><span class="em">•</span><span>блюдо для слива</span></div>
+<div class="bl sub"><span class="em">•</span><span>фольга</span></div>
+<div class="bl sub"><span class="em">•</span><span>ткань, алтарь или бумага — на бытовых поверхностях не работаем</span></div>
+<h3 class="sl">Готовим свечу рабочую</h3>
+<div class="bl"><span class="em">1.</span><span><b>Оговор на травы,</b> если используете:</span></div>
+<p class="ex">«Травушка-удалушка (наименование), ты в поле выросла, солнцем напиталась, в воде дождевой накупалась, я тебя купила (собрала) для дел благих да праведных. Поделись своей силушкой земной для ритуала отжига родового негатива! Ты гони-выгоняй, травушка, с Рода моего все вредоносные энергии, что счастью и здоровью моему мешают, пути-дороги перекрывают. Благодарю тебя, травушка! Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">2.</span><span><b>Оговор на свечу:</b> </span></div>
+<p class="ex">«Свеча, я (имя), законный потомок своего Рода, нарекаю тебя сжечь в своём мощном пламени весь родовой негатив, влияющий на меня, и избавить меня от деструктивных родовых программ, проклятий, колдовства, влияния сущностей, порч, сглазов, разрушающих моё физическое и энергетическое здоровье. Свеча, нарекаю тебя своей мощной силой очистить моё физическое тело и тонкие оболочки от (перечислить заболевания и негативные моменты своей жизни, от которых вы хотите избавиться). Да будет так!»</p>
+<h3 class="sl">Готовим посуду</h3>
+<p>На дно кладём фольгу, потом соль.</p>
+<div class="bl"><span class="em">1.</span><span><b>Оговор на соль</b> (соль — это стихия Земли):</span></div>
+<p class="ex">«Соль земная, из Земли пришла, силу Земли приняла. Я (имя) нарекаю тебя усилить своими мощными земными энергиями ритуал отжига родового негатива. Собери да запечатай навек с воском весь родовой негатив, что жить мне мешает, да беды мои вызывает: родовые порчи, сглазы и проклятья, колдовство и влияния сущностей, разрушающих моё физическое и энергетическое здоровье. Соль земная, наполни своей мощной силой ритуал отжига всех вредоносных родовых программ, влияющих на меня. Благодарю тебя, соль! Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">2.</span><span><b>Оговор на траву,</b> если используете её в соли:</span></div>
+<p class="ex">«Травушка-удалушка (наименование), ты в поле выросла, солнцем напиталась, в воде дождевой накупалась, я тебя купила (собрала) для дел благих да праведных. С этой солью смешайся да поделись своей силушкой земной для ритуала отжига родового негатива! Забирай, травушка, с Рода моего все вредоносные энергии, что счастью и здоровью моему мешают, пути-дороги перекрывают. Благодарю тебя, травушка! Да будет так! Во благо!»</p>
+<h3 class="sl">Этапы</h3>
+<div class="bl"><span class="em">1.</span><span><b>Зажигаем свечу сопровождения</b> с оговором:</span></div>
+<p class="ex">«Свеча, я (имя) нарекаю тебя сопроводить и усилить ритуал отжига родового негатива. Свечу зажигаю, чистку Рода моего начинаю. Свеча ярко пылает, свою мощь и силу светлую, чистую мне передаёт. Да будет так! Ритуал начался. Во благо!»</p>
+<p>Растираем ладони. Умываемся огнём.</p>
+<div class="bl"><span class="em">2.</span><span><b>От свечи сопровождения зажигаем рабочую свечу</b> с оговором:</span></div>
+<p class="ex">«Свеча, я (имя), законный потомок своего Рода, нарекаю тебя сжечь в мощном пламени Огня Батюшки весь родовой негатив, влияющий на меня. Свечу зажигаю, отжиг Рода моего начинаю. Свеча ярко огнём пылает, весь негатив с Рода моего сливает, меня очищает от деструктивных родовых программ, проклятий, колдовства, влияния сущностей, порч, сглазов, (перечислить заболевания и негативные моменты своей жизни, от которых вы хотите избавиться), разрушающих моё физическое и энергетическое здоровье. Да будет так! Ритуал начался. Во благо!»</p>
+<div class="bl"><span class="em">3.</span><span><b>Делаем слив негатива свечой в соль.</b> Кладём палец на первый узел в ряду, где 64 предка, и говорим оговор ниже. Такую же процедуру проводим по очереди с каждым предком (ряд 128 предков не трогаем).</span></div>
+<p>Зажимаем пальцем узел и приветствуем предка:</p>
+<p class="ex">«Приветствую тебя, мой родной предок (можно добавить: я вижу и принимаю тебя). Я посылаю тебе исцеляющие потоки любви и благодарности и действую во благо нашему Роду!»</p>
+<p>И льём свечой рядом с узлом:</p>
+<p class="ex">«Огнём жгу-сжигаю, воском лью-сливаю, Род свой по праву крови очищаю, да в соли навек всё снятое запираю! Слейся с Рода моего да там и запечатайся: сглаз да порча, проклятье да колдовство, влияния сущностей, да собственные дурные деяния (сюда можно добавить прицельно то, от чего нужно избавиться). Всё, что светлым энергиям, удаче, здоровью, любви, денежному притоку путь закрывает, я с Рода своего огнём сжигаю, воском сливаю, в воске да соли навек запираю. Воск в соли застывает, всё дурное с Рода моего слитое в себе запирает. Слово моё крепкое, сильное, светлое. Да будет так! Во благо!»</p>
+<p>Оговор на себя:</p>
+<p class="ex">«Огнём жгу-сжигаю, воском лью-сливаю, себя от родового негатива очищаю, да в соли навек всё снятое запираю! Слейся с меня да там и запечатайся влияющий на меня родовой негатив: сглаз да порча, проклятье да колдовство, влияния сущностей (сюда можно добавить прицельно то, от чего нужно избавиться). Всё, что светлым родовым энергиям, удаче, здоровью, любви, денежному притоку путь закрывает, я с себя огнём отжигаю, воском сливаю, в воске да соли навек запираю. Воск в соли застывает, всё дурное родовое с меня слитое в себе запирает. Слово моё крепкое, сильное, светлое. Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">4.</span><span><b>Благодарим Род</b> до чувства «достаточно»:</span></div>
+<p class="ex">«Мои родные, любимые предки, примите мою искреннюю благодарность и заботу во благо и процветание всего нашего Рода! Ритуал закончен. Во благо!»</p>
+<div class="bl"><span class="em">5.</span><span><b>Сворачиваем всё в фольгу</b> и выбрасываем.</span></div>
+<label class="done"><input type="checkbox" data-done="l6"><span>Урок пройден</span></label></section>
+<section class="topic" id="l7"><h2>👁 7. Практика. Родовые сущности</h2>
+<p class="vkl"><a class="vkbtn" href="https://vk.ru/club237151242?z=video-237151242_456239017" target="_blank" rel="noopener">▶ Смотреть практику</a></p>
+<h3 class="sl">Родовые сущности</h3>
+<p>Слабое Родовое Дерево 🌳 — очень привлекательная пища для сущностей нижнего астрала. Точно так же, как на слабом садовом дереве начинают паразитировать вредители, так и в Родовом древе могут присутствовать энергопаразиты.</p>
+<p>Чем слабее Род, тем легче на нём паразитировать.</p>
+<p>В момент смерти сущность может уйти в родовую систему и портить жизнь потомкам.</p>
+<h3 class="sl">Как появляются сущности в Родовой системе?</h3>
+<div class="bl"><span class="em">1.</span><span>Подсаживают через магические ритуалы на Род или на отдельных членов Рода.</span></div>
+<div class="bl"><span class="em">2.</span><span>Сущности у зависимых людей в момент смерти могут уйти в Родовую систему.</span></div>
+<div class="bl"><span class="em">3.</span><span>Одержимый самоубийца: в момент смерти сущность также может уйти в Родовую систему.</span></div>
+<div class="bl"><span class="em">4.</span><span>Предки, которые занимались чёрной магией, заключавшие контракты с сущностями на крови, также этот контракт оставили в Родовой системе.</span></div>
+<div class="bl"><span class="em">5.</span><span>Заключившие контракт с сущностями по случайности.</span></div>
+<div class="bl"><span class="em">6.</span><span>Неупокоенные, застрявшие в родовой системе души (абортированные детки, самоубийцы, иногда это души, внезапно ушедшие не по судьбе, погибших).</span></div>
+<h3 class="sl">Виды сущностей в родовой системе</h3>
+<div class="bl"><span class="em">1.</span><span><b>Духи-помощники —</b> не трогаем.</span></div>
+<div class="bl"><span class="em">2.</span><span><b>Лярвы и мафлоки —</b> убираем обязательно Манифестом.</span></div>
+<div class="bl"><span class="em">3.</span><span><b>Бесы, демоны —</b> расторгаем контракты Манифестом.</span></div>
+<div class="bl"><span class="em">4.</span><span><b>Неупокоенные души —</b> принимаем в родовую систему отверженных и исключённых.</span></div>
+<div class="imp"><span class="em">❗</span><span>Важно! Здесь нужно понимать, что вы сможете избавиться только от той сущности, которая непосредственно оказывает влияние на вас, ваше здоровье и жизнь, то есть той, что связана с вами энергетически.</span></div>
+<h3 class="sl">Практика: Манифест об очищении Рода</h3>
+<p>Что понадобится:</p>
+<div class="bl sub"><span class="em">•</span><span>свеча</span></div>
+<div class="bl sub"><span class="em">•</span><span>нож</span></div>
+<div class="bl sub"><span class="em">•</span><span>блюдо для сжигания</span></div>
+<div class="bl sub"><span class="em">•</span><span>лист бумаги и ручка</span></div>
+<p>В этой практике мы напишем и огласим свой Манифест по разрыву всех вредоносных контрактов с сущностями-вредителями. Вам нужно переписать Манифест, проговаривая его. Оговоры перепишите заранее.</p>
+<h3 class="sl">Структура ритуала</h3>
+<div class="bl"><span class="em">＋</span><span>Зажигаем свечу сопровождения.</span></div>
+<div class="bl"><span class="em">＋</span><span>Начинаем переписывать текст (не заранее, а именно пишем в процессе практики). Лучше переписывать не с телефона, а с листа, заранее распечатать.</span></div>
+<div class="bl"><span class="em">＋</span><span>Там, где написано про отсечки, после абзаца накаляем нож с оговором и отсекаем: делаем махи остриём между свечой и собой (как на видео).</span></div>
+<div class="bl"><span class="em">＋</span><span>Продолжаем так же писать до конца и отсекаем (всего 3 отсечки).</span></div>
+<div class="bl"><span class="em">＋</span><span>Как всё написали, зачитываем полностью весь Манифест, так же отсекаем три раза после каждого абзаца, потом ставим лист (текстом к свече) между собой и свечой и отсекаем в последний раз (седьмой).</span></div>
+<div class="bl"><span class="em">＋</span><span>Поджигаем Манифест с оговором.</span></div>
+<div class="bl"><span class="em">＋</span><span>Пока горит Манифест — оговор и отсечки.</span></div>
+<h3 class="sl">Этапы</h3>
+<div class="bl"><span class="em">1.</span><span><b>Зажигаем свечу сопровождения:</b> </span></div>
+<p class="ex">«Свеча, я (имя) нарекаю тебя силой Огня Батюшки сопроводить, усилить и передать мой Манифест высшим силам на реализацию. Свечу зажигаю, ритуал обнуления всех контрактов с вредоносными сущностями начинаю. Свеча ярко пылает, светлую и чистую силу Огня Батюшки мне передаёт. Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">2.</span><span><b>Пишем, проговаривая вслух,</b> следующий ниже текст. Слова про отсечки ножом не пишем.</span></div>
+<div class="imp"><span class="em">📜</span><span>Манифест об очищении Рода от родовых сущностей</span></div>
+<p class="ex">«Я (имя), свободный Человек на планете Земля, я полновластный Хозяин/Хозяйка своей судьбы, своей воли, своего сознания и подсознания, а также храма своего физического тела. Именем своей свободной воли, данной мне Творцом, и по праву крови как законный представитель своего Рода я ИЗГОНЯЮ И ЗАПРЕЩАЮ входить в моё поле и пространство всем вредоносным родовым сущностям: лярвам, мафлокам, бесам, чертям, демонам, неупокоенным душам, фантомам и представителям других цивилизаций.»</p>
+<div class="imp"><span class="em">🔪</span><span>Отсечки ножом</span></div>
+<p class="ex">«По праву крови и родовой преемственности, как ныне живущий представитель Рода, я (имя) расторгаю все договоры, клятвы, контракты и обещания, заключённые моими предками и влияющие на меня и событийный план моей жизни. Все данные ими согласия по этим невыгодным договорам я обнуляю! Я отказываюсь проживать любые эмоции и события по этим обязательствам! Я ЗАПРЕЩАЮ с этого момента причинять мне зло и вред, разрушать моё физическое тело и мои тонкие тела, забирать мою энергию, жизнь и моё время. И я (имя) заявляю о своей свободной воле:»</p>
+<div class="imp"><span class="em">🔪</span><span>Отсечки ножом</span></div>
+<p class="ex">«Я отменяю все эти устаревшие и невыгодные договоры, контракты и клятвы, связывающие мой Род с душами других людей, тёмными силами и прочими сущностями, и с этого момента я прекращаю все выплаты по ним. Именем своей свободной воли и по праву крови я отрубаю все эти отточные каналы, построенные тёмными силами, что тянут силы и энергии, обесточивают мой Род!»</p>
+<div class="imp"><span class="em">🔪</span><span>Отсечки ножом</span></div>
+<p class="ex">«По праву ныне живущего представителя я возвращаю своему Роду изначальную чистоту, силу и благословение. Я наполняю своё родовое древо светом, любовью и гармонией. Всех сущностей, которые были привязаны к моему Роду, я с благодарностью за опыт отпускаю на свет. Я прощаю вас и прошу прощения за всё содеянное мною и моими предками. Отныне мой Род свободен от всех вредоносных сущностей и их влияний. Да будет так! Во благо! Истинно!»</p>
+<p>Подпись.</p>
+<div class="bl"><span class="em">3.</span><span><b>Делаем отсечки ножом</b> (там, где написано про отсечки), сначала накаляя нож с оговором, потом отсекаем. До чувства «достаточно».</span></div>
+<p>Накаливаем нож с оговором:</p>
+<p class="ex">«Нож калю, накаляю, силой огня наполняю для дела благого да чистого. Огонь Батюшка, войди в это пространство и наполни этот нож своими мощными очищающими энергиями. Благодарю тебя, Батюшка Огонь! Да будет так!»</p>
+<div class="bl"><span class="em">4.</span><span><b>Как всё написали,</b> торжественно прочитайте полностью ваш Манифест; в местах про отсечки — отсекайте ножом.</span></div>
+<div class="bl"><span class="em">5.</span><span><b>Сжигаем Манифест</b> со словами:</span></div>
+<p class="ex">«Я (имя) отдаю моё законное волеизъявление, этот Манифест, на реализацию высшим силам света! Огонь Батюшка, прошу тебя, помоги, донеси мой Манифест высшим силам! Во благо!» — сжигаем Манифест.</p>
+<p class="ex">«Благодарю тебя, Батюшка Огонь! Да будет так!»</p>
+<p>Пока горит Манифест, делаем отсечки:</p>
+<p class="ex">«Я (имя) секу-отсекаю, рублю-отрубаю влияния вредоносных родовых сущностей от себя отрезаю! Да будет так! Во благо!»</p>
+<p>В конце, как провели все отсечки: «Благодарю тебя, Огонь Батюшка!»</p>
+<label class="done"><input type="checkbox" data-done="l7"><span>Урок пройден</span></label></section>
+<section class="topic" id="l8"><h2>🛡 8. Практика. Нейтрализация проклятий</h2>
+
+<h3 class="sl">Мать и отец</h3>
+<p>Мать — первый человек после Бога. Именно через неё ваша душа обрела тело на земле.</p>
+<p>Нужно принять и простить её за всё. Через обиды на мать страдает именно ваше тело, затем женское счастье (дети, муж, климат в семье).</p>
+<p>Можно зажигать свечу и своими словами благодарить вашу маму за жизнь, здоровье, тело и т. д.</p>
+<p>Через отца вы впитываете мудрость, способность выживать, волю и способность зарабатывать. Отец — это истина и закон, чувство меры и справедливость.</p>
+<p>Нужно принять и простить его за всё. Через обиды на отца страдает ваше материальное благополучие и карьера.</p>
+<div class="imp"><span class="em">⚠️</span><span>Если человек считает: «Отец/мать мне всю жизнь испортил(а), он(а) негодяй» и т. д. — это очень тревожный сигнал: подобные чувства к родителю перекрывают поток родовой силы с крыла предков отца (или матери).</span></div>
+<p>Самое страшное — это родительское проклятье, когда своему ребёнку пожелано что-то в сердцах. Это перекрывает потоки родовой силы!</p>
+<h3 class="sl">Как убрать родительское проклятье?</h3>
+<div class="bl"><span class="em">1.</span><span><b>Если есть общение с родителями</b> и можно получить родительское благословение. Пусть мать или отец положит вам руки на голову и скажет:</span></div>
+<p class="ex">«Господи/Творец, смиренно прошу тебя, прости меня, грешную (грешного), и благослови моё дитя через руки мои на радость, успех и счастье. Всё плохое, сказанное мною в сердцах, отменяю! Во благо!» (Аминь)</p>
+<div class="bl"><span class="em">2.</span><span><b>Если родителя, который проклял, нет в живых.</b> Приходим на могилу в родительскую субботу и просим:</span></div>
+<p class="ex">«Господи/Творец, смиренно прошу тебя, сними с меня злые слова моей матери/отца, пусть ослабнет сила её/его вольного или случайного проклятья, и прости ей/ему грехи языка! Во благо!» (Аминь)</p>
+<p>Если вы веруете, то перед обращением к Господу:</p>
+<div class="bl sub"><span class="em">•</span><span>сначала читаем «Отче наш»,</span></div>
+<div class="bl sub"><span class="em">•</span><span>потом прошение до чувства «достаточно»,</span></div>
+<div class="bl sub"><span class="em">•</span><span>потом поминальные молитвы за упокой души родителя.</span></div>
+<div class="bl"><span class="em">3.</span><span><b>Если родитель жив и с ним нет контакта.</b> Зажигаем свечу и читаем, ритуал на 7 дней (7 свечей):</span></div>
+<p class="ex">«Господи/Творец, смиренно прошу тебя, сними с меня злые слова моей матери/отца, пусть ослабнет сила её/его вольного или случайного проклятья, и прости ей/ему грехи языка! Во благо!» (Аминь)</p>
+<p>Если вы веруете, то перед обращением к Господу:</p>
+<div class="bl sub"><span class="em">•</span><span>сначала читаем «Отче наш»,</span></div>
+<div class="bl sub"><span class="em">•</span><span>потом прошение до чувства «достаточно»,</span></div>
+<div class="bl sub"><span class="em">•</span><span>потом молимся за здравие родителя.</span></div>
+<div class="bl"><span class="em">4.</span><span><b>Если вы сами прокляли своего ребёнка</b> и осознали свои ошибки. Нужно обязательно попросить прощения у ребёнка либо читать на свечу 7 дней! Подобные проклятья сильно портят и вашу личную карму, и карму целого Рода, и, конечно, ребёнку вы перекрыли поток родовой силы.</span></div>
+<p class="ex">«Господи/Творец, смиренно прошу тебя, сними с моего ребёнка (чада моего) злые слова, сказанные в гневе, пусть ослабнет сила моего проклятья, и прости мне грехи моего языка! Благословляю тебя (имя ребёнка) на долгую, здоровую, счастливую и радостную жизнь. Во благо!» (Аминь)</p>
+<div class="imp"><span class="em">❗</span><span>Важно! В ходе этого ритуала вы не влияете на живых родителей и не вмешиваетесь в их уроки! Вы снимаете проклятья, ослабляете его действие только лично с себя. Однако всей родовой структуре будет значительно легче.</span></div>
+<label class="done"><input type="checkbox" data-done="l8"><span>Урок пройден</span></label></section>
+<section class="topic" id="l9"><h2>🕯 9. Практика. Исключённые из Рода</h2>
+
+<h3 class="sl">Аборты и нерождённые</h3>
+<p>История аборта — это очень болезненная тема, поэтому родители (особенно мать) пытаются забыть случившееся и, как правило, держат всё в тайне. Особенно тяжело женщинам. Абортированное дитя — это отвергнутый участник Рода.</p>
+<div class="bl"><span class="em">1.</span><span>Помните, что душа приходит в Род, чтобы решить как свои личные задачи, так и отработать миссию в родовой системе. Если мать делает аборт, она не только совершает убийство, но грубо вмешивается и в карму души ребёнка, и в систему Рода. И Род будет воспроизводить задачи нерождённой души на ныне живущих членов Рода.</span></div>
+<div class="bl"><span class="em">2.</span><span>Конечно, если это медицинские показания, это является смягчающим обстоятельством, но основной сути это не изменяет. Как результат, задачи и отработки нерождённого ребёнка плюс его отягчающая карма ложатся на плечи будущих детей.</span></div>
+<p>Причины для аборта могут быть различными, включая медицинские рекомендации или личные обстоятельства, но это всегда трагедия и стресс для всей родовой системы. Но важно понимать:</p>
+<div class="bl"><span class="em">1.</span><span>В Родовой системе судьбы всех участников тесно переплетены. Душа абортированного ребёнка застревает в родовой системе. Пока живущие члены Рода не отработают её задачи, она не найдёт покоя. Ведь она связана контрактом с Родом и застряла в межмирье — ещё не на Земле и уже не в тонком мире.</span></div>
+<div class="bl"><span class="em">2.</span><span>Мужчина, инициировавший аборт, нарушает принцип ответственности за потомство, и Род лишает его морального права на успех. Одно либо несколько наказаний:</span></div>
+<div class="bl sub"><span class="em">•</span><span>трудности в самореализации (деньги, карьера, семья)</span></div>
+<div class="bl sub"><span class="em">•</span><span>мужское здоровье страдает</span></div>
+<div class="bl sub"><span class="em">•</span><span>Род даёт меньше ресурсов и поддержки</span></div>
+<p>Компенсация внешними атрибутами не приносит удовлетворения. Даже если такой мужчина достигает статуса, счастья и радости это ему не доставляет.</p>
+<div class="bl"><span class="em">3.</span><span>На женщину аборт оказывает самое разрушительное воздействие как на здоровье, так и на психику. Она пытается найти оправдания, но в глубине души знает, что аборт — это убийство её ребёнка. Поэтому чувство вины сохраняется и трансформируется в блокировки:</span></div>
+<div class="bl sub"><span class="em">•</span><span>женское здоровье (опухоли, миомы, кисты и пр.) — зоны груди и органов малого таза</span></div>
+<div class="bl sub"><span class="em">•</span><span>личные отношения</span></div>
+<div class="bl sub"><span class="em">•</span><span>здоровье последующих детей</span></div>
+<div class="bl sub"><span class="em">•</span><span>лишается поддержки Рода</span></div>
+<div class="bl"><span class="em">4.</span><span>Для восстановления гармонии в семье нужно признать и принять всех исключённых родственников. Ныне живущие участники Родовой системы имеют все права восстанавливать разрушенные родовые связи и принимать отвергнутых, это облегчит и их собственную жизнь, и жизнь потомков, так как всё встанет на свои места. Если ничего не делать для восстановления Рода, то накопленный негатив становится очень тяжёлым, и это приведёт к разрушению Родовой системы.</span></div>
+<div class="imp"><span class="em">❗</span><span>Признание и принятие нерождённых является первостепенной задачей.</span></div>
+<h3 class="sl">Практика 1. Принятие нерождённых детей Рода</h3>
+<p>Приготовьте: миску, соль, лист бумаги, ручку, КРАСНУЮ свечу.</p>
+<div class="bl"><span class="em">1.</span><span><b>Зажгите свечу,</b> красную как символ Рода:</span></div>
+<p class="ex">«Я, (ваше имя и фамилия), с любовью, надеждой и смирением зажигаю эту свечу и обращаюсь за благословением и поддержкой к Роду своего отца (фамилия отцовского рода), Роду своей матери (фамилия материнского рода) и Роду своего мужа (фамилия рода мужа, если вы замужем). Огонь Батюшка, я прошу тебя, войди в это пространство и унеси мои слова высшим силам на реализацию! Пусть яркое пламя этой свечи наполнит силой и светом мои слова и пожелания всем нерождённым и отвергнутым детям, чьи души были посланы в мой Род. Благодарю тебя, Батюшка Огонь!»</p>
+<p>Если говорит мужчина, упоминает только Род матери и отца.</p>
+<div class="bl"><span class="em">2.</span><span><b>Пишем на листе ваше прошение-покаяние:</b> </span></div>
+<p class="ex">«Перед ликом Всевышнего и перед всеми предками своего Рода я прошу прощения у всех детей, что были убиты во чревах женщин моего Рода. Всевышний/Творец, я прошу у тебя прощения за всех своих предков по отцовской и материнской линиям за нарушение законов жизни: за отказ принять души, посланные тобой!»</p>
+<p class="ex">«Дорогие дети, принявшие решение родиться в нашей семье, я признаю всю вашу боль, отчаяние и страх. И я скорблю вместе с вами. Дорогие дети, что приходили в наш Род, но были отвергнуты своими родителями! Я искренне и смиренно прошу прощения от имени ваших родителей и всех предков нашего Рода! И я возвращаю вам всю любовь и признание нашего Рода.»</p>
+<p>Если это случилось с вами, то добавляем:</p>
+<p class="ex">«Мой любимый и желанный ребёнок, что погиб в чреве моём (умер в младенчестве)! Дорогие и любимые дети, что умерли во чревах не по вине родителей, и те, что погибли в младенчестве! Я принимаю вас всем сердцем, посылаю вам свою материнскую любовь, и я даю вам законное место в нашем Роду!»</p>
+<p>(всем детям)</p>
+<p class="ex">«Дорогие наши дети, от себя и всех женщин Рода я шлю вам светлую материнскую любовь. Пусть она наполнит счастьем и согреет ваши отстрадавшие души. Пусть пламя этой свечи успокоит вашу боль и согреет ваши души теплом и светом. В лице всех своих предков я как законный представитель Рода даю вам законное место в Родовой системе и покровительство всего нашего Рода. Вы все — любимые и желанные дети моего Рода! И я прошу вас: простите нас и отпустите боль, обиды и страх, и пусть отныне ваши души будут наполнены любовью. Любимые дети, вы свободны, следуйте своим судьбам и найдите радость и счастье. От имени всего нашего Рода благословляю вас! Отныне мы с вами едины!»</p>
+<p>Подпись.</p>
+<div class="bl"><span class="em">3.</span><span><b>Сжигаем этот лист в огне</b> со словами:</span></div>
+<p class="ex">«Я (имя) отдаю моё законное волеизъявление, это прошение, на реализацию высшим силам света! Огонь Батюшка, прошу тебя, помоги, донеси моё волеизъявление высшим силам! Во благо!» — сжигаем.</p>
+<p class="ex">«Благодарю тебя, Батюшка Огонь! Да будет так!»</p>
+<div class="bl"><span class="em">4.</span><span><b>Свеча догорает</b> в вашем поле.</span></div>
+<div class="imp"><span class="em">🔁</span><span>Эту практику желательно повторить 7 раз (принцип «до 7 колена»).</span></div>
+<h3 class="sl">Практика 2. Покаяние и принятие своих нерождённых детей</h3>
+<p>(допись, если были)</p>
+<p>Если у вас были аборты, вам нужно добавить в лист следующую часть, главное — максимально включить искренность:</p>
+<p class="ex">«Перед ликом Всевышнего и перед всеми предками своего Рода я прошу прощения у своего ребёнка (у всех детей), что был убит в моём чреве. Всевышний/Творец, я признаю свою вину и смиренно прошу у тебя прощения за нарушение закона жизни: за отказ принять душу (души), посланную(ые) тобой! Дорогой мой ребёнок (дети), я вижу и принимаю тебя всем сердцем и душой, я скорблю вместе с тобой о содеянном, и я прошу тебя (вас) отпустить всю боль, страдания и горечь разочарования от непринятия! Пусть свобода и лёгкость наполнят твою душу (ваши души)! Любимый(е) мой ребёнок (дети), вы свободны, следуйте своим судьбам и найдите радость и счастье. Как твоя мать я даю тебе (вам) твоё законное место в моём сердце и в нашем Роду, и я благословляю тебя (вас)! Отныне мы с тобой (с вами) едины!»</p>
+<p>Это мы прописываем в том же листе. Потом подпись.</p>
+<h3 class="sl">Допись, если были умершие детки (не по вине родителей)</h3>
+<p class="ex">«Перед ликом Всевышнего и перед всеми предками своего Рода я отправляю всю свою материнскую любовь моему ребёнку (детям), что погибли в моём чреве. Дорогой мой ребёнок (дети), я вижу и принимаю тебя (вас) всем сердцем и душой, я скорблю вместе с тобой (вами) о случившемся, и я наполняю тебя (вас) своей любовью и нежностью от всего своего материнского сердца! Пусть свобода и лёгкость наполнят твою душу (ваши души)! Любимый(е) мой ребёнок (дети), вы свободны, следуйте своим судьбам и найдите радость и счастье. Как твоя (ваша) мать я даю тебе (вам) твоё законное место в моём сердце и в нашем Роду, и я благословляю тебя (вас)! Я буду помнить и любить тебя всегда. Отныне мы с тобой (с вами) едины!»</p>
+<p>Это мы прописываем в том же листе. Потом подпись.</p>
+<h3 class="sl">Практика 3. Принятие остальных исключённых членов семьи</h3>
+<p>После того как вы приняли детей, делаем такую же практику принятия остальных членов Рода. Это можно сделать в другой день, если энергетических ресурсов нет. Последовательность действий абсолютно такая же, только оговоры другие.</p>
+<div class="bl"><span class="em">1.</span><span><b>Зажгите свечу,</b> лучше красную как символ Рода:</span></div>
+<p class="ex">«Я, (ваше имя и фамилия), с любовью, надеждой и смирением зажигаю эту свечу и обращаюсь за благословением и поддержкой к Роду своего отца (фамилия отцовского рода), Роду своей матери (фамилия материнского рода) и Роду своего мужа (фамилия рода мужа, если вы замужем). Огонь Батюшка, я прошу тебя, войди в это пространство и унеси мои слова высшим силам на реализацию! Пусть яркое пламя этой свечи наполнит силой и светом мои слова и пожелания всем исключённым, самоисключённым, отвергнутым и забытым членам моего Рода. Благодарю тебя, Батюшка Огонь!»</p>
+<div class="bl"><span class="em">2.</span><span><b>Пишем на листе ваше волеизъявление:</b> </span></div>
+<p class="ex">«Перед ликом Всевышнего, на правах ныне живущего члена Рода, я каюсь и смиренно прошу прощения за всех членов моего Рода, кто принял решение уйти из жизни от боли, отчаяния, страха и страданий. И я обращаюсь к тем, кто принял это трудное решение покинуть этот мир. Я признаю ваш тяжёлый путь и ту боль, которую вы несли. И я искренне сожалею о том, что ваше страдание не было услышано и понято.»</p>
+<p class="ex">«В лице всех своих предков я как ныне живущий представитель Рода даю вам законное место в Родовой системе и покровительство всего нашего Рода. Вы все — любимые и желанные члены Рода! И я прошу вас: отпустите боль, обиды и страх, и пусть отныне ваши души будут наполнены светом и любовью. Отныне вы свободны, следуйте своим судьбам и найдите радость и счастье. От имени всего нашего Рода благословляю вас! Отныне мы с вами едины!»</p>
+<p class="ex">«Перед ликом Всевышнего, на правах ныне живущего члена Рода, я каюсь и смиренно прошу прощения за всех членов моего Рода, кто совершал ошибки перед людьми и высшими силами, за тех, кто причинял вред другим существам намеренно или случайно, убивал, воровал, разбивал чужие семьи, занимался чёрной магией, нарушал обеты, за тех, кто шёл на поводу своих слабостей, зависимостей и пороков, за тех, кто проживал тяжёлые кармические уроки. Я признаю ваш тяжёлый выбор, путь и страдания. И я искренне сожалею о том, что вы не услышали голос истины в нужный момент.»</p>
+<p class="ex">«В лице всех своих предков я как ныне живущий представитель Рода даю вам законное место в Родовой системе и покровительство всего нашего Рода. Вы все — любимые и желанные члены Рода, даже если вы оступились и совершили ошибки! В лице всех своих предков я каюсь за ваши прегрешения перед Всевышним и от имени всего нашего Рода благословляю вас в следующих воплощениях пройти достойно все кармические уроки и с честью пройти все испытания!»</p>
+<p class="ex">«Перед ликом Всевышнего, на правах ныне живущего члена Рода, я каюсь и смиренно прошу прощения у всех отвергнутых, исключённых, забытых и случайно потерянных членов моего Рода. Я признаю всю вашу боль, одиночество, страх и страдания. Я признаю ваш тяжёлый путь и ту боль, которую вы несли без поддержки Рода. И я искренне сожалею о том, что ваше страдание не было услышано и понято. В лице всех своих предков я как ныне живущий представитель Рода даю вам законное место в Родовой системе и покровительство всего нашего Рода. Вы все — любимые и желанные члены Рода! И я прошу вас: отпустите боль, обиды и страх, и пусть отныне ваши души будут наполнены светом и любовью. От имени всего нашего Рода благословляю вас и направляю вам любовь, силы и поддержку Рода! Отныне мы с вами едины!»</p>
+<p>Подпись.</p>
+<div class="bl"><span class="em">3.</span><span><b>Сжигаем этот лист в огне</b> со словами:</span></div>
+<p class="ex">«Я (имя) отдаю моё законное волеизъявление, это прошение, на реализацию высшим силам света! Огонь Батюшка, прошу тебя, помоги, донеси моё волеизъявление высшим силам! Во благо!» — сжигаем.</p>
+<p class="ex">«Благодарю тебя, Батюшка Огонь! Да будет так!»</p>
+<div class="bl"><span class="em">4.</span><span><b>Свеча догорает</b> в вашем поле.</span></div>
+<div class="imp"><span class="em">🔁</span><span>Эту практику желательно повторить 7 раз (принцип «до 7 колена»).</span></div>
+<h3 class="sl">Самоубийства</h3>
+<p>Суициды, или самоубийства, очень отягощают Родовую систему. Только давайте разберёмся в терминах:</p>
+<div class="bl sub"><span class="em">•</span><span>Самоубийство — это добровольный отказ от жизни из-за неспособности справиться с трудностями (трусливый побег, по сути).</span></div>
+<div class="bl sub"><span class="em">•</span><span>Самопожертвование — отдать жизнь, чтобы спасти кого-то. Это святой поступок сильного духом человека. Один этот поступок уже расчищает многое как в Роду, так и в личной карме человека.</span></div>
+<p>Самоубийство закладывает в родовую систему опасную программу для всех потомков: «Стало тяжело? Не надо искать выход. Просто уйди». И потомки уходят от трудностей саморазрушительным образом — в алкоголь, в болезнь, в одиночество, в депрессию или также в уход из жизни.</p>
+<p>Поэтому самоубийц мы обязательно принимаем (смотрите выше практику принятия).</p>
+<h3 class="sl">Исключённые члены Рода</h3>
+<p>Исключёнными бывают позорные или «неудобные» члены Рода, такие как:</p>
+<div class="bl sub"><span class="em">•</span><span>сумасшедшие (юродивые)</span></div>
+<div class="bl sub"><span class="em">•</span><span>преступники</span></div>
+<div class="bl sub"><span class="em">•</span><span>нерождённые дети</span></div>
+<div class="bl sub"><span class="em">•</span><span>дети-отказники</span></div>
+<div class="bl sub"><span class="em">•</span><span>предатели, диссиденты</span></div>
+<div class="bl sub"><span class="em">•</span><span>алкоголики, наркоманы</span></div>
+<div class="bl sub"><span class="em">•</span><span>самоубийцы</span></div>
+<h3 class="sl">Важно знать правила</h3>
+<div class="bl"><span class="em">1.</span><span>Вошедшие в Родовую систему остаются в ней навсегда, и никто не может быть исключён.</span></div>
+<div class="bl"><span class="em">2.</span><span>Если кого-то из членов исключают, забывают, появляется «заместитель», восстанавливающий баланс. То есть человек, берущий на себя задачи отверженного члена Рода.</span></div>
+<p>Отверженные родственники могут проявляться через повторяющиеся судьбы и болезни в Роду, пока не будут приняты. Семьи должны восстанавливать связь с исключёнными предками, иначе родовые проблемы будут повторяться.</p>
+<label class="done"><input type="checkbox" data-done="l9"><span>Урок пройден</span></label></section>
+<section class="topic" id="l10"><h2>🏰 10. Практика. Защита Рода</h2>
+
+<h3 class="sl">Подготовка</h3>
+<p>Что понадобится:</p>
+<div class="bl sub"><span class="em">•</span><span>8 свечей — одна большая и 7 маленьких</span></div>
+<div class="bl sub"><span class="em">•</span><span>трава полынь</span></div>
+<div class="bl sub"><span class="em">•</span><span>соль</span></div>
+<div class="bl sub"><span class="em">•</span><span>ёмкость для отвара</span></div>
+<div class="bl sub"><span class="em">•</span><span>нити джутовые, 3 шт., от 3,5 до 4,5 м</span></div>
+<div class="bl sub"><span class="em">•</span><span>8 подсвечников</span></div>
+<div class="bl sub"><span class="em">•</span><span>белый лист бумаги или картона для раскатывания свечей</span></div>
+<div class="bl"><span class="em">1.</span><span><b>Зажгите свечу сопровождения:</b> </span></div>
+<p class="ex">«Свеча, нарекаю тебя сопроводить и усилить мощной стихией Огня Батюшки этот ритуал. Свеча, передай мне (имя) энергии и силы огненной для дела светлого да чистого! Огонь Батюшка, войди в это пространство и наполни его своими мощными энергиями! Благодарю тебя, да будет так! Ритуал начался! Во благо!»</p>
+<div class="bl"><span class="em">2.</span><span><b>Готовим 7 свечей с полынью:</b> накатываем на себя или добавляем в свечу травы с оговором:</span></div>
+<p class="ex">«Полынь-трава, ты в поле росла, силой наливалась, под солнцем цвела, живою водою питалась! Я тебя, полынь, купила (собрала) для дел благих да праведных! Прошу, наполни эту свечу своими мощными очищающими и защитными энергиями! Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">3.</span><span><b>Готовим отвар полыни</b> с оговором:</span></div>
+<p class="ex">«Полынь-трава, ты в поле росла, силой наливалась, под солнцем цвела, живою водою питалась! Я тебя, полынь, купила (собрала) для дел благих да праведных! Полынь, войди в эту воду и наполни её своими мощными очищающими и защитными энергиями! Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">4.</span><span><b>Всыпаем соль в отвар</b> с оговором:</span></div>
+<p class="ex">«Соль земная, из Земли пришла, силу Земли приняла. Тебя, соль, сыплю-насыпаю, (имя) себя от всех вредоносных сил и энергий очищаю-защищаю. От всего лихого, больного да злого (имя) сберегаю. Чисти, соль, (имя) да становись, соль, на защиту мощную! Сохрани, оборони, да всякое зло, зависть и всяческое воздействие от (имя) отведи. Слово моё крепкое, сильное, светлое. Ключ. Замок. Язык. Да будет так!»</p>
+<div class="bl"><span class="em">5.</span><span><b>Начитываем на готовый настой,</b> руки над водой:</span></div>
+<p class="ex">«Кланяюсь тебе, Вода-матушка, всё ты чистишь, омываешь, всё живое соками питаешь, силой наполняешь! С поклоном прошу тебя, Матушка Вода, прими полынь-траву да соль для дела светлого и чистого. Дай своей доброй воли и силушки очищающей! Благодарю тебя, Матушка Вода! Благодарю! Благодарю!»</p>
+<div class="bl"><span class="em">6.</span><span><b>Джутовые нити,</b> 3 шт. толщиной 2 мм, длиной от 3,5 м. Плетём косу с оговором:</span></div>
+<p class="ex">«Нить крепкую вяжу, в триединую косу обережную связываю, силой предков своих укрепляю, силой Рода наполняю. Как нити меж собой крепко переплетаются, да в косу ладно складываются, так и защита моя крепкая, как броня, становится. Всё злое да больное, чужеродное да вред несущее — порчи да проклятья, колдовство да влияние случайное — на эту косу защитную натыкается да в огне в пепел белый превращается! Слово моё светлое, слово моё законное! Да будет так!»</p>
+<div class="bl"><span class="em">7.</span><span><b>Веревку напитываем силой огня:</b> </span></div>
+<p class="ex">«Огонь Батюшка, прошу тебя, напитай своими мощными очищающими и защищающими энергиями эту косу! Благодарю! Благодарю! Благодарю!»</p>
+<div class="bl"><span class="em">8.</span><span><b>Веревку пропитываем в отваре с солью</b> с оговором:</span></div>
+<p class="ex">«В воде полынной, в воде солёной, словами заговорённой эту косу обережную кручу, посолонь вращаю, силой трав наполняю. Как эта коса водой заговорённой напитывается, так и сила мощная защитная в ней собирается. Да будет так! Во благо!»</p>
+<h3 class="sl">Сам ритуал</h3>
+<div class="bl"><span class="em">1.</span><span><b>Раскладываем на полу кругом верёвку</b> с оговором:</span></div>
+<p class="ex">«Круг обережный Родовой воздвигаю, силу предков мощную, светлую, родную себе на защиту призываю, в этот круг замыкаю. Силы Родные, с почитанием и любовью к вам обращаюсь — войдите в это пространство и придите мне на помощь. Замыкайся, круг, да становись бронёй от зла любого на меня направленного, от слова дурного, от сглаза людского, от порчи тёмной, от колдовства тайного и явного, от влияния сущностей. Круг — крепость Родовая. Да будет так! Ключ. Замок. Язык. Истинно!»</p>
+<div class="bl"><span class="em">2.</span><span><b>Внутрь круга расставляем 7 свечей,</b> символы колен Рода, и садимся внутрь (ориентация по сторонам света тут не имеет значения). На каждую свечу перед установкой в подсвечник начитываем оговор:</span></div>
+<p class="ex">«Свеча, я (имя), законный потомок своего Рода, нарекаю тебя послужить мне для дела светлого, обережного! Свеча, прояви в этом ритуале всю мощь Рода моего славного да силу Огня Батюшки для защиты огненной! Всё дурное, лихое, вредоносное, больное, что на пламя твоё натыкается, в этом пламени дотла сгорает, в пепел белый превращается. Дело моё светлое, чистое, да будет так!»</p>
+<div class="bl"><span class="em">3.</span><span><b>Зажигаем свечи,</b> начиная с колена 128 человек, затем поворачиваемся по часовой стрелке и зажигаем свечи с оговором:</span></div>
+<p class="ex">«Свечу зажигаю, защиту мощную родовую огненной стеной вокруг себя воздвигаю. Свеча ярко огнём пылает, силу и поддержку Рода моего славного мне передаёт. Огонь Батюшка, становись бронёй пылающей, огненной от зла любого на меня направленного, от слова дурного, от сглаза людского, от порчи тёмной, от колдовства тайного и явного, от влияния сущностей (можно добавить что-то конкретное). Всё дурное, лихое, вредоносное, больное, что на пламя твоё натыкается, в этом пламени дотла сгорает, в пепел белый превращается. Дело моё светлое, чистое, да будет так! Истинно!»</p>
+<div class="bl"><span class="em">4.</span><span><b>Сидим в круге,</b> начитываем оговор:</span></div>
+<p class="ex">«С почтением и открытым сердцем кланяюсь вам, мои славные и любимые предки. Я искренне благодарю вас за дар жизни, за любовь и заботу, за ваш пережитый опыт, за накопленную мудрость и силу. Я прошу вашей защиты, силы и поддержки. Прошу, защитите меня, вашего законного потомка, от зла любого, от слова дурного, от сглаза людского, от порчи тёмной, от колдовства тайного и явного, от влияния сущностей (можно добавить что-то конкретное). Пусть будет славен да силён наш Род. Слава вам, мои любимые предки! Благо потомкам нашим и слава Роду моему!»</p>
+<div class="bl"><span class="em">5.</span><span><b>Сидим так, пока не прогорят свечи</b> (поэтому берём небольшие свечи, обязательно под подсвечник кладём фольгу). Визуализируем вокруг себя огненный кокон или сферу.</span></div>
+<div class="bl"><span class="em">6.</span><span><b>Завершение.</b> Поблагодарите предков ещё раз за всё и поблагодарите Батюшку Огонь. В конце ритуала произнесите: «Ритуал завершён».</span></div>
+<div class="imp"><span class="em">🔁</span><span>Делать можно раз в год или раз в полгода — это ритуал защиты и чистки одновременно.</span></div>
+<label class="done"><input type="checkbox" data-done="l10"><span>Урок пройден</span></label></section>
+<section class="topic" id="l11"><h2>⚡ 11. Практика. Получение силы и энергии Рода</h2>
+
+<h3 class="sl">Сила Рода</h3>
+<p>Сила Рода, энергия Рода — это сила каждого из когда-либо живших ваших предков, сумма его талантов, выполненных задач, подвигов. Это абсолютно реальная энергия, накопленная поколениями вашего Рода. Это опыт, мудрость, способности, энергия и жизненная сила.</p>
+<p>И это доступно вам по праву рождения. И вы можете почерпнуть этой мощной силы от вашего Рода.</p>
+<h3 class="sl">Что может сила ваших предков?</h3>
+<div class="bl"><span class="em">1.</span><span><b>Преодоление трудностей:</b> сила Рода помогает справляться с проблемами, перед которыми вы могли бы отступить.</span></div>
+<div class="bl"><span class="em">2.</span><span><b>Раскрытие потенциала:</b> таланты, способности, дары.</span></div>
+<div class="bl"><span class="em">3.</span><span><b>Защита от неприятностей</b> и помощь в трудных ситуациях.</span></div>
+<div class="bl"><span class="em">4.</span><span>Благоприятные возможности и удачное стечение обстоятельств.</span></div>
+<h3 class="sl">Если вы получаете достаточно Родовой силы, то:</h3>
+<div class="bl"><span class="em">1.</span><span>Вам часто везёт, помощь приходит неожиданно, нужные люди сами встречаются на пути. Вы идёте легко по дороге жизни.</span></div>
+<div class="bl"><span class="em">2.</span><span>У вас особая чуйка, вы получаете «знаки судьбы» и правильно их интерпретируете — это подсказки Рода, помогающие принимать верные решения.</span></div>
+<div class="bl"><span class="em">3.</span><span>У вас много сил и энергии. Люди вас часто спрашивают, как вы везде всё успеваете. А вы ощущаете прилив сил, энтузиазма, уверенности в себе, особенно когда занимаетесь «своим» делом, идёте по «своему» пути.</span></div>
+<div class="bl"><span class="em">4.</span><span>Крепкое здоровье.</span></div>
+<div class="bl"><span class="em">5.</span><span>Сильный характер и энергетика.</span></div>
+<h3 class="sl">В чём причина нехватки Силы Рода?</h3>
+<div class="bl"><span class="em">1.</span><span>Обиды на родителей или бабушек, непрощение родни, страхи и плохие отношения между родственниками препятствуют потоку родовой энергии.</span></div>
+<div class="bl"><span class="em">2.</span><span>Незнание своих корней и отсутствие интереса к Роду и к жизни живущих родственников ослабляет связь с Родом.</span></div>
+<div class="bl"><span class="em">3.</span><span>Негативные родовые программы: в Роду много негатива, проклятий, магии, тяжёлых событий, исключённых из Рода и пр.</span></div>
+<h3 class="sl">Как усилить связь с Родом и получить его поддержку?</h3>
+<div class="bl"><span class="em">1.</span><span>Работа с родовым древом буквально, фактически и физически настраивает мозг, его сознательную и бессознательную часть погрузиться в родовую систему, осознать себя частью большого могучего Рода.</span></div>
+<div class="bl"><span class="em">2.</span><span>Изучение судеб предков, их жизненных сценариев поможет понять себя, свои сильные и слабые стороны. Да, это бывает невозможно. Тогда нужно уделять особое внимание своим ныне живущим родственникам и своим потомкам.</span></div>
+<div class="bl"><span class="em">3.</span><span>Делать практики почитания предков: зажигайте свечи, медитируйте, чертите древо, выжигайте, вспоминайте предков добрым словом, благодарите их за жизнь.</span></div>
+<div class="bl"><span class="em">4.</span><span>Важно простить предков за их ошибки: это ведь люди, и они жили и выжили (!) в тяжёлые времена.</span></div>
+<div class="bl"><span class="em">5.</span><span>Убирать родовой негатив и делать практики благодарности и славления Рода.</span></div>
+<h3 class="sl">Практика: получение Силы Рода</h3>
+<p>Для этой практики вам понадобятся:</p>
+<div class="bl sub"><span class="em">•</span><span>цветные карандаши</span></div>
+<div class="bl sub"><span class="em">•</span><span>ваша схема Крыльев Рода</span></div>
+<div class="bl sub"><span class="em">•</span><span>свеча сопровождения</span></div>
+<h3 class="sl">Цвета проводят следующие энергии, и можно нарекать их</h3>
+<div class="bl"><span class="em">🟡</span><span><b>Жёлтый —</b> энергия удачи, радости, исполнения желаний, жизненная сила, изобилие.</span></div>
+<div class="bl"><span class="em">🔴</span><span><b>Красный —</b> изобилие и процветание, здоровье, жизненные силы, долголетие, продолжение Рода, энергия Любви, Защита Рода.</span></div>
+<div class="bl"><span class="em">🟢</span><span><b>Зелёный —</b> энергия роста, развития, плодовитости, жизненной силы, здоровья, живучести, адаптивности к любым стрессам.</span></div>
+<div class="bl"><span class="em">🔵</span><span><b>Синий —</b> энергия мудрости, женственности, интуиции, раскрытия потенциала, ментальной силы.</span></div>
+<div class="bl"><span class="em">🟣</span><span><b>Фиолетовый —</b> энергия духовности и силы духа. Магические способности.</span></div>
+<div class="bl"><span class="em">💠</span><span><b>Голубой —</b> проявленность, карма и её облегчение, способности к общению, красноречие, мышление.</span></div>
+<div class="bl"><span class="em">🩷</span><span><b>Розовый —</b> лад с людьми, любовь, красота, женственность, гармония.</span></div>
+<div class="bl"><span class="em">🟠</span><span><b>Оранжевый —</b> творчество, исполнение желаний, сексуальность, деторождение.</span></div>
+<h3 class="sl">Этапы</h3>
+<div class="bl"><span class="em">1.</span><span><b>Зажигаем свечу сопровождения:</b> </span></div>
+<p class="ex">«Свеча, нарекаю тебя свечой сопровождения и активатором светлой силы стихии Огня Батюшки. Огонь Батюшка, войди в это пространство и наполни его своими живыми и мощными энергиями. Свеча, передай мне силы огненной для дела благого! Дорогие мои Предки, я приветствую вас, и вместе с теплом и светом этой свечи я направляю вам свою искреннюю любовь и благодарность! Батюшка Огонь, согрей своим теплом моих предков и отнеси им мои прошения. Благодарю тебя, Батюшка Огонь! Да будет так! Ритуал начался! Во благо мне и моему Роду!»</p>
+<p>Умываемся огнём.</p>
+<div class="bl"><span class="em">2.</span><span><b>Гладим рисунок Рода,</b> умываем огнём свечи родовые связи. Подключаемся. Сверху вниз, от предков к вам:</span></div>
+<p class="ex">«Приветствую тебя, мой древний, мудрый, величественный Род, я благодарю тебя за опыт моих предков, за их таланты, знания, силу и способность к выживанию. И я с благодарностью принимаю все ресурсы моего Рода для того, чтобы передать их своим потомкам. Я готов(а) принять и принимаю всё самое ценное, необходимое и благое из моего Рода, накапливаю свой опыт и передаю в будущие жизни эти благостные ресурсы. Во благо!»</p>
+<div class="bl"><span class="em">3.</span><span><b>Оговоры на цвет.</b> </span></div>
+<p>3.1. Перед прорисовкой:</p>
+<p class="ex">«Жёлтый (нужный вам) цвет, я (имя, фамилия) нарекаю тебя провести в мою жизнь силу и энергию изобилия / удачи / любви / защиты и пр. моего славного Рода. Да будет так! Во благо!»</p>
+<p>3.2. Во время прорисовки:</p>
+<p class="ex">«С жёлтым (вставить нужное) я как законный представитель своего Рода по праву наследия провожу мощные потоки Родовой силы (какой описываем) от своих прямых предков в свою жизнь, в своё тело, в свой событийный план! Во благо!»</p>
+<p>3.3. После того как прорисовали канал, умываем его огнём:</p>
+<p class="ex">«Огонь Батюшка, наполни своими мощными энергиями мой родовой канал, очисти силушку Родовую (какую) от всех препятствий на пути ко мне! Благодарю тебя, Батюшка Огонь! Благодарю! Благодарю!»</p>
+<div class="bl"><span class="em">4.</span><span><b>После того как закончили работу,</b> умываем руки огнём и кладём их на ваши Крылья Рода. С любовью смотрите на них и представьте, что вы смотрите вглубь вашего Рода, до чувства «достаточно»:</span></div>
+<p class="ex">«Отправляю по родовым каналам Свет, Любовь и благодарность всем своим предкам и родичам. Пусть Род мой крепнет и становится сильнее! Храни, Творец, мой Славный Род! Пусть все ресурсы, дары и таланты преумножаются в жизнях всех ныне живущих представителей моего Рода. Пусть Любовь и Благодарность процветают в моём Роду. С благодарностью за Дар Жизни я обнимаю и благословляю Любовью весь мой Род в лице всех моих предков! Во благо!»</p>
+<div class="bl"><span class="em">5.</span><span><b>В конце:</b> </span></div>
+<p class="ex">«Мои дорогие и любимые предки, я посылаю вам искреннюю любовь и благодарность за ваши дары и светлые энергии! Огонь Батюшка, благодарю тебя за помощь! Ритуал завершён! Во благо!»</p>
+<div class="imp"><span class="em">💛</span><span>Правил, как правильно и с какого предка вести цветную линию, нет, всё по вашей интуиции и хотению. Самое важное — довести этим цветом до себя (от любого предка в ряду 128, сверху вниз).</span></div>
+<label class="done"><input type="checkbox" data-done="l11"><span>Урок пройден</span></label></section>
+<section class="topic" id="l12"><h2>💰 12. Практика. Получение богатств Рода</h2>
+
+<h3 class="sl">Деньги через призму Рода и энергий</h3>
+<p>Бедность — это не просто отсутствие денег. Это состояние энергетического дисбаланса, которое может передаваться из поколения в поколение.</p>
+<p>В родовой системе находится огромное количество информации о жизни ваших предков.</p>
+<h3 class="sl">Что такое деньги на уровне энергий?</h3>
+<div class="bl"><span class="em">1.</span><span>Деньги — это не просто придуманная людьми система взаиморасчётов, это очень эмоциональная сфера, связанная напрямую с выживанием и благополучием людей.</span></div>
+<div class="bl"><span class="em">2.</span><span>Люди в обмен на деньги тратят самое дорогое — время жизни (чтобы их заработать), физические и умственные ресурсы. Поэтому деньги — это абсолютно реальная энергия.</span></div>
+<div class="bl"><span class="em">3.</span><span>Ради материального обогащения люди (в том числе ваши предки) идут на самые большие преступления. Мошенничество, продажа вредных товаров, невозврат долга, нарушение слова, взяточничество, грабежи, шантаж, вымогательства, убийства.</span></div>
+<div class="imp"><span class="em">❗</span><span>Всё это сильно блокирует родовые каналы, по которым к вам течёт энергия благополучия.</span></div>
+<h3 class="sl">Какие родовые программы могут стать причиной финансовых трудностей?</h3>
+<div class="bl"><span class="em">1.</span><span><b>Проклятия:</b> слова, сказанные в сердцах, могут иметь разрушительную силу, особенно если они произнесены в состоянии сильного эмоционального напряжения.</span></div>
+<div class="bl"><span class="em">2.</span><span><b>Страх богатства:</b> парадоксально, но иногда предки, столкнувшись с трудностями, связанными с деньгами, могли бессознательно сформировать программу страха перед богатством, передав её потомкам. Как пример — грабёж богатых, раскулачивание.</span></div>
+<div class="bl"><span class="em">3.</span><span><b>Неотработанные кармические долги ваших предков:</b> незавершённые дела, невыполненные обещания, невозвращённые долги — всё это может создавать энергетические блоки, препятствующие финансовому благополучию.</span></div>
+<div class="bl"><span class="em">4.</span><span><b>Родовые сценарии,</b> повторяющиеся из поколения в поколение модели поведения, связанные с деньгами, например: «деньги — это зло», «деньги достаются тяжким трудом», или «честным трудом многого не заработаешь» и «богатые все воры, казнокрады».</span></div>
+<div class="bl"><span class="em">5.</span><span><b>Нарушение энергетического обмена с Родом:</b> неуважение к предкам, неприятие своей родовой истории может блокировать поток изобилия.</span></div>
+<div class="bl"><span class="em">6.</span><span>Чужой целенаправленный негатив (порчи, колдовство).</span></div>
+<div class="bl"><span class="em">7.</span><span><b>Собственные неблаговидные дела предков:</b> </span></div>
+<div class="bl sub"><span class="em">•</span><span>мошенничество и обман</span></div>
+<div class="bl sub"><span class="em">•</span><span>нарушения клятв и невозврат долгов</span></div>
+<div class="bl sub"><span class="em">•</span><span>кто грабил, убивал ради богатства</span></div>
+<div class="bl sub"><span class="em">•</span><span>наживался на людях неправедным путём</span></div>
+<div class="bl sub"><span class="em">•</span><span>когда ради богатства приносили вред людям</span></div>
+<h3 class="sl">Практика: подключение к богатым предкам</h3>
+<p>У вас в Роду есть предки с опытом и накопленными знаниями, как жить в богатстве и процветании, а также есть предки с негативными сценариями бедности — это те, кто были крестьянами и, как могли, выживали. И сегодня мы подключимся к тем вашим предкам, кто жил в энергиях изобилия.</p>
+<h3 class="sl">Подготовка</h3>
+<div class="bl"><span class="em">1.</span><span>Желательно растущая луна и первая половина дня.</span></div>
+<div class="bl"><span class="em">2.</span><span>Направление — на Восток.</span></div>
+<div class="bl"><span class="em">3.</span><span>Приготовьте яблоко без изъянов, свечу и Крылья Рода.</span></div>
+<p>Яблоко, когда моете под проточной водой, наговорите:</p>
+<p class="ex">«Вода-Матушка, всё земное ты моешь, водами чистыми омываешь, очисти и это яблоко от всех чужеродных вредоносных энергий, от всего накопленного энергетического мусора и унеси всю грязь в недра земные! Благодарю тебя, Матушка Вода! Благодарю! Благодарю! Во благо!»</p>
+<h3 class="sl">Сам ритуал</h3>
+<div class="bl"><span class="em">1.</span><span><b>Зажигаем свечу сопровождения:</b> </span></div>
+<p class="ex">«Свечу зажигаю, ритуал начинаю! Свеча, нарекаю тебя свечой сопровождения и активатором светлой силы стихии Огня. Огонь Батюшка, войди в это пространство и наполни его своими мощными янскими энергиями. Прошу тебя, Батюшка Огонь, передай мне силы огненной для дела светлого и благого! Благодарю тебя! Да будет так! Во благо!»</p>
+<p>Умываем руки, себя.</p>
+<div class="bl"><span class="em">2.</span><span><b>Очищаем яблоко энергетически</b> над огнём против часовой стрелки. Говорим до чувства достаточности, с чувством и трепетом. Это очень важно.</span></div>
+<p class="ex">«Приветствую тебя, Огонь Батюшка, войди в это пространство, наполни его своим теплом, светом, очищающим и защищающим жаром! Огонь Батюшка, я (имя) прошу тебя: очисти это яблоко своей мощной силой от всех накопленных чужеродных энергий! Благодарю тебя!»</p>
+<div class="bl"><span class="em">3.</span><span><b>Наполняем яблоко энергетически,</b> увеличиваем его энергоёмкость, вращая по часовой стрелке:</span></div>
+<p class="ex">«Огонь Батюшка, я (имя) прошу тебя: надели это яблоко своей мощной силой!»</p>
+<p>Да будет так! Поклон!</p>
+<div class="bl"><span class="em">4.</span><span><b>Приветствуем предков</b> и держим руки до тепла или покалывания, соединяемся с богатыми и успешными представителями вашего Рода и просим у них поддержки:</span></div>
+<p class="ex">«Приветствую вас, мои любимые предки, я вижу вас и отправляю вам Свет, Любовь и благодарность! И в данный момент я, ваш потомок, обращаюсь и подключаюсь к тем из вас, мои предки, кто познал опыт богатства и процветания, кто умел создавать, приумножать и удерживать материальные блага.»</p>
+<p class="ex">«Дорогие мои предки, чьи жизни были отмечены богатством и процветанием, взываю к вам: благословите и направьте меня по пути успеха. Откройте мне дороги к достатку, научите меня видеть возможности и принимать верные решения. Поделитесь со мной своими мощными энергиями, мудростью, силой, опытом и способностями. С благодарностью я принимаю ваши Родные энергии и обещаю использовать их во благо себе и своим близким и чтить вашу память и наследие. Я обещаю стать достойным членом Рода и преумножать силу моего славного Рода и добрых предков. Храни, Творец, мой Славный Род! Во благо!»</p>
+<div class="bl"><span class="em">5.</span><span><b>Начитываем оговор на яблоко:</b> </span></div>
+<p class="ex">«Яблоко красное, наливное, солнцем гретое, дождями умытое, наполняйся силами предков моих, тех, кто богатством и процветанием славился. Насыщайся, яблочко, светлыми энергиями предков моих, мудростью, силой, их умениями и опытом богатство создавать, приумножать да сохранять. Во благо! Да будет так!»</p>
+<div class="bl"><span class="em">6.</span><span><b>Яблоко съедаем,</b> представляя, как сила и энергия предков переходят к вам. В процессе (перед следующим кусочком) начитываем фразы, можно видоизменять и добавлять своё по необходимости:</span></div>
+<div class="bl sub"><span class="em">•</span><span>Как сок твой сладкий моё тело питает, так и жизнь моя пусть изобилием и достатком полнится.</span></div>
+<div class="bl sub"><span class="em">•</span><span>Как легко это яблоко вкушаю, так достаток легко и свободно ко мне прибывает, растёт, крепнет, множится.</span></div>
+<div class="bl sub"><span class="em">•</span><span>Сила и благословение предков моих через этот плод меня наполняет.</span></div>
+<div class="bl sub"><span class="em">•</span><span>Силы мощные своих славных процветающих предков через это яблоко в себя вбираю.</span></div>
+<div class="bl"><span class="em">7.</span><span><b>После того как съели,</b> благодарим предков и Огонь:</span></div>
+<p class="ex">«Предки мои славные, искренне благодарю вас за ваши светлые силы и энергии, что через этот плод ко мне пришли! Обещаю их использовать во благо! Батюшка Огонь, благодарю тебя за твои мощные энергии. Благодарю, благодарю, благодарю! Ритуал закончен. Да будет так!»</p>
+<div class="bl"><span class="em">8.</span><span><b>Остатки яблока отдаём Земле:</b> </span></div>
+<p class="ex">«Земля-матушка, благодарю тебя за дары твои! Благодарю, благодарю, благодарю!»</p>
+<label class="done"><input type="checkbox" data-done="l12"><span>Урок пройден</span></label></section>
+<section class="topic" id="l13"><h2>🎁 Подарок: чистка родового негатива 7 колен</h2>
+
+<div class="imp"><span class="em">🎁</span><span>Бонусный урок по чистке 7 колен! Чистить можно каждый день по колену в течение 7 дней, можно несколько колен в день — как удобно.</span></div>
+<div class="imp"><span class="em">🌒</span><span>Делаем на убывающую луну.</span></div>
+<h3 class="sl">Защита</h3>
+<div class="bl"><span class="em">1.</span><span>Волосы в хвост.</span></div>
+<div class="bl"><span class="em">2.</span><span>Нити красные или браслеты из меди на две руки с оговором:</span></div>
+<p class="ex">«Нить защитную на запястье вяжу, крепкими узлами связываю. Как нить эта вокруг руки моей замыкается, так всё чужое вредоносное об эту защиту отбивается. Да будет так! Ключ, замок, язык!»</p>
+<p>Можно защитный пояс с оговором:</p>
+<p class="ex">«Пояс нательный, силой Рода напитанный, на себя надеваю, кругом защитным себя закрываю от всех вредоносных для меня энергий. Да будет так!»</p>
+<p>или:</p>
+<p class="ex">«Пояс-поясок — Родовая силушка, замыкай кружок, обними меня, защити меня! Благодарю!»</p>
+<h3 class="sl">Требования к фото</h3>
+<p>Нужен образ человека, чтобы вы могли сонастроиться на энергетику человека. Распечатываем фотографию:</p>
+<div class="bl sub"><span class="em">•</span><span>свежую (максимум полгода давности)</span></div>
+<div class="bl sub"><span class="em">•</span><span>в полный рост</span></div>
+<div class="bl sub"><span class="em">•</span><span>чёткую: вы должны хорошо видеть черты лица</span></div>
+<div class="bl sub"><span class="em">•</span><span>желательно, чтобы ладони рук были расположены к камере (открыты)</span></div>
+<div class="bl sub"><span class="em">•</span><span>один на фото, без людей и животных</span></div>
+<div class="bl sub"><span class="em">•</span><span>солнечные очки недопустимы</span></div>
+<div class="bl sub"><span class="em">•</span><span>фото не кладём на бытовые поверхности во время сеанса: это может быть алтарь, листы белой бумаги или ткань из натуральных тканей</span></div>
+<h3 class="sl">Входим в пространство человека</h3>
+<div class="imp"><span class="em">❗</span><span>Работаем только по запросу самого человека, то есть с его разрешения (дети и муж — исключение).</span></div>
+<p>Нужно знать: имя, цель, дату рождения.</p>
+<div class="bl"><span class="em">1.</span><span>Кладём руки по краям фото и слегка расфокусированно смотрим в область Аджны человека, до чувства «достаточно». У вас должно появиться лёгкое неуловимое ощущение родства с человеком.</span></div>
+<div class="bl"><span class="em">2.</span><span>Произносим слова, впускающие в пространство человека, до чувства «достаточно»:</span></div>
+<p class="ex">«С твоего разрешения и разумения, с добром, светом и благими намерениями вхожу в пространство твоё, (имя). Впусти и прими помощь мою. Слово моё истинно. Да будет так!»</p>
+<div class="bl"><span class="em">3.</span><span>После работы умываем фото огнём по часовой стрелке и сверху вниз (с головы до ног) до чувства «достаточно»:</span></div>
+<p class="ex">«(Имя человека), обряд завершён. Во благо. Да будет так!»</p>
+<h3 class="sl">Вам понадобится</h3>
+<div class="bl sub"><span class="em">•</span><span>1 свеча сопровождения и 7 свечей для чистки одного человека (7 колен)</span></div>
+<div class="bl sub"><span class="em">•</span><span>соль поваренная или морская</span></div>
+<div class="bl sub"><span class="em">•</span><span>при желании можно добавить трав антидемонических, например: полынь, крапива, зверобой, шалфей, чистотел, чертополох, пижма, тысячелистник, хвоя</span></div>
+<div class="bl sub"><span class="em">•</span><span>блюдо для слива</span></div>
+<div class="bl sub"><span class="em">•</span><span>фольга</span></div>
+<div class="bl sub"><span class="em">•</span><span>ткань, алтарь или бумага — на бытовых поверхностях не работаем</span></div>
+<div class="bl sub"><span class="em">•</span><span>фото человека</span></div>
+<p>Если делаете свечи из вощины, не делайте их длинными: 10 см достаточно.</p>
+<h3 class="sl">Готовим свечу рабочую</h3>
+<div class="bl"><span class="em">1.</span><span><b>Оговор на травы,</b> если используете:</span></div>
+<p class="ex">«Травушка-удалушка (наименование), ты в поле выросла, солнцем напиталась, в воде дождевой накупалась, я тебя купила (собрала) для дел благих да праведных. Поделись своей силушкой земной для ритуала отжига родового негатива! Ты гони-выгоняй, травушка, с (имя человека) всё зло, по Роду перешедшее, что счастью и здоровью его/её мешает, пути-дороги перекрывает. Благодарю тебя, травушка! Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">2.</span><span><b>Оговор на свечу.</b> </span></div>
+<div class="bl"><span class="em">2.1.</span><span><b>Если работаете со своим ребёнком:</b> </span></div>
+<p class="ex">«Свеча, я (имя), как законный потомок своего Рода и мать (имя ребёнка), нарекаю тебя сжечь в своём мощном пламени весь родовой негатив, влияющий на моего ребёнка, и избавить его/её от деструктивных родовых программ, проклятий, колдовства, влияния сущностей, порч, сглазов, разрушающих его/её физическое и энергетическое здоровье. Свеча, нарекаю тебя своей мощной силой очистить его/её физическое тело и тонкие оболочки от (перечислить заболевания и негативные моменты, от которых вы хотите избавиться). Да будет так!»</p>
+<div class="bl"><span class="em">2.2.</span><span><b>Если работаете с мужем:</b> </span></div>
+<p class="ex">«Свеча, я (имя), как законная жена (имя человека), нарекаю тебя сжечь в своём мощном пламени весь родовой негатив, влияющий на моего мужа (имя), и избавить его от деструктивных родовых программ, проклятий, колдовства, влияния сущностей, порч, сглазов, разрушающих его материальное благополучие, физическое и энергетическое здоровье. Свеча, нарекаю тебя своей мощной силой очистить его физическое тело и тонкие оболочки от (перечислить заболевания и негативные моменты, от которых вы хотите избавиться). Да будет так!»</p>
+<div class="bl"><span class="em">2.3.</span><span><b>Если работаете с другим человеком:</b> </span></div>
+<p class="ex">«Свеча, я (имя), действуя по запросу (имя человека) и с его полного согласия, нарекаю тебя сжечь в своём мощном пламени весь родовой негатив, влияющий на (имя), и избавить его/её от деструктивных родовых программ, проклятий, колдовства, влияния сущностей, порч, сглазов, разрушающих его/её материальное благополучие, физическое и энергетическое здоровье. Свеча, нарекаю тебя своей мощной силой очистить его физическое тело и тонкие оболочки от (перечислить заболевания и негативные моменты, от которых вы хотите избавиться). Да будет так!»</p>
+<h3 class="sl">Готовим посуду</h3>
+<p>На дно кладём фольгу, потом соль.</p>
+<div class="bl"><span class="em">1.</span><span><b>Оговор на соль</b> (соль здесь — прототип Земли-матушки и будет забирать всё плохое):</span></div>
+<p class="ex">«Соль земная, из Земли пришла, силу Земли приняла. Я (имя) нарекаю тебя усилить своими мощными земными энергиями ритуал отжига родового негатива. Собери да запечатай навек с воском весь родовой негатив, что жить (кому — имя, и если родня, то степень родства) мешает, да беды вызывает: родовые порчи, сглазы и проклятья, колдовство и влияния сущностей, разрушающих его/её физическое и энергетическое здоровье. Соль земная, наполни своей мощной силой ритуал отжига всех вредоносных родовых программ, влияющих на (имя, и если нужно, степень родства). Благодарю тебя, соль! Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">2.</span><span><b>Оговор на траву,</b> если используете её в соли:</span></div>
+<p class="ex">«Травушка-удалушка (наименование), ты в поле выросла, солнцем напиталась, в воде дождевой накупалась, я тебя купила (собрала) для дел благих да праведных. С этой солью смешайся да поделись своей силушкой земной для ритуала отжига родового негатива! Забирай, травушка, всё зло, по Роду перешедшее, что счастью и здоровью (имя человека) мешает, пути-дороги перекрывает. Благодарю тебя, травушка! Да будет так! Во благо!»</p>
+<h3 class="sl">Последовательность действий</h3>
+<div class="bl"><span class="em">1.</span><span><b>Зажигаем свечу сопровождения</b> с оговором:</span></div>
+<p class="ex">«Свеча, я (имя), нарекаю тебя сопроводить и усилить ритуал отжига родового негатива. Свечу зажигаю, чистку (имя человека, и если родня, то степень родства) начинаю. Свеча ярко пылает, свою мощь и силу светлую, чистую мне передаёт. Да будет так! Ритуал начался. Во благо!»</p>
+<p>Растираем ладони, уши, стопы. Умываемся огнём.</p>
+<div class="bl"><span class="em">2.</span><span><b>От свечи сопровождения зажигаем рабочую свечу</b> с оговором.</span></div>
+<div class="bl"><span class="em">2.1.</span><span><b>Если чистите ребёнка:</b> </span></div>
+<p class="ex">«Свеча, я (имя), законный потомок своего Рода и мать (имя ребёнка), нарекаю тебя сжечь в мощном пламени Огня Батюшки весь родовой негатив, влияющий на моего ребёнка! Свечу зажигаю, отжиг начинаю. Свеча ярко огнём пылает, весь негатив по Роду на моего ребёнка перешедший сливает, (имя ребёнка)! Ты чисти, свеча, огнём отжигай да в воск запечатывай все негативные родовые программы, проклятья, колдовство, влияния сущностей, порчи, сглазы, (перечислить заболевания и негативные моменты, от которых вы хотите избавиться), сжигай всё зло и вред, что дороги ему/ей (или имя) закрывают, счастье, удачу, материальное благополучие отнимают, здоровье разрушают. Да будет так! Ритуал начался. Во благо!»</p>
+<div class="bl"><span class="em">2.2.</span><span><b>Если чистите мужа:</b> </span></div>
+<p class="ex">«Свеча, я (имя), как законная жена (имя человека), нарекаю тебя сжечь в мощном пламени Огня Батюшки весь родовой негатив, влияющий на моего мужа (имя)! Свечу зажигаю, отжиг начинаю. Свеча ярко огнём пылает, весь негатив по Роду на моего мужа перешедший сливает, (имя мужа)! Ты чисти, свеча, огнём отжигай да в воск запечатывай все негативные родовые программы, проклятья, колдовство, влияния сущностей, порчи, сглазы, (перечислить заболевания и негативные моменты, от которых вы хотите избавиться), сжигай всё зло и вред, что дороги ему (или имя) закрывают, счастье, удачу, материальное благополучие отнимают, здоровье разрушают. Да будет так! Ритуал начался. Во благо!»</p>
+<div class="bl"><span class="em">2.3.</span><span><b>Если чистите другого человека:</b> </span></div>
+<p class="ex">«Свеча, я (имя), действуя по запросу (имя человека) и с его полного согласия, нарекаю тебя сжечь в своём мощном пламени весь родовой негатив, влияющий на (имя)! Свечу зажигаю, отжиг начинаю. Свеча ярко огнём пылает, весь негатив по Роду на (имя человека) перешедший сливает! Ты чисти, свеча, огнём отжигай да в воск запечатывай все негативные родовые программы, проклятья, колдовство, влияния сущностей, порчи, сглазы, (перечислить заболевания и негативные моменты, от которых вы хотите избавиться), сжигай всё зло и вред, что дороги ему/ей (или имя) закрывают, счастье, удачу, материальное благополучие отнимают, здоровье разрушают. Да будет так! Ритуал начался. Во благо!»</p>
+<div class="bl"><span class="em">3.</span><span><b>Делаем слив негатива свечой в соль,</b> льём свечой рядом с фото.</span></div>
+<div class="bl"><span class="em">3.1.</span><span><b>Если чистите ребёнка:</b> </span></div>
+<p class="ex">«Огнём жгу-сжигаю, воском лью-сливаю, своего ребёнка по праву крови очищаю, родовой негатив с ребёнка своего отжигаю, да в соли навек всё снятое запираю! Слейся с ребёнка моего да в воске запечатайся: родовые сглаз да порча, проклятье да колдовство, влияния сущностей, да собственные дурные деяния (это если ребёнок взрослый, можно добавить прицельно то, от чего нужно избавиться). Всё, что светлым энергиям, удаче, здоровью, любви, денежному притоку путь закрывает, я с ребёнка своего огнём сжигаю, воском сливаю, в воске да соли навек запираю, по праву матери. Воск в соли застывает, всё дурное-родовое с ребёнка моего слитое в себе запирает. Слово моё крепкое, сильное, материнское! Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">3.2.</span><span><b>Если чистите мужа:</b> </span></div>
+<p class="ex">«Огнём жгу-сжигаю, воском лью-сливаю, мужа своего (имя) по праву законному очищаю, родовой негатив с него (или имя) отжигаю, да в соли навек всё снятое запираю! Слейся с мужа моего (имя) да в воске запечатайся: родовые сглаз да порча, проклятье да колдовство, влияния сущностей, да собственные дурные деяния (сюда можно добавить прицельно то, от чего нужно избавиться). Всё, что светлым энергиям, удаче, здоровью, любви, денежному притоку путь закрывает, я с мужа своего (имя) огнём сжигаю, воском сливаю, в воске да соли навек запираю, по праву жены законной. Воск в соли застывает, всё дурное-родовое с мужа моего слитое в себе запирает. Слово моё крепкое, сильное, светлое! Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">3.3.</span><span><b>Если чистите другого:</b> </span></div>
+<p class="ex">«Огнём жгу-сжигаю, воском лью-сливаю, (имя человека) по воле её/его очищаю! Родовой негатив с него (или имя) отжигаю, да в соли навек всё снятое запираю! Слейся с (имя человека) да в воске запечатайся: родовые сглаз да порча, проклятье да колдовство, влияния сущностей, да собственные дурные деяния (сюда можно добавить прицельно то, от чего нужно избавиться). Всё, что светлым энергиям, удаче, здоровью, любви, денежному притоку путь закрывает, я с (имя человека) по воле его/её огнём сжигаю, воском сливаю, в воске да соли навек запираю! Воск в соли застывает, всё дурное-родовое с (имя человека) слитое в себе запирает. Слово моё крепкое, сильное, светлое! Да будет так! Во благо!»</p>
+<div class="bl"><span class="em">4.</span><span><b>Выходим из фантомного пространства.</b> Произносим: «Ритуал завершён, во благо!»</span></div>
+<p>Благодарим Батюшку Огонь. Сворачиваем всё в фольгу и выбрасываем.</p>
+<label class="done"><input type="checkbox" data-done="l13"><span>Урок пройден</span></label></section>
+</main></div>
+</div>
+<script>
+(function(){
+var $=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+var tabs=$('.tab'),secs=$('.topic'),cur='home';
+function show(id){cur=id;secs.forEach(function(s){s.classList.toggle('show',s.id===id)});tabs.forEach(function(t){t.classList.toggle('on',t.dataset.t===id)});
+var L=$('.layout')[0];try{window.scrollTo(0,window.innerWidth<=760&&L?L.offsetTop:0)}catch(e){}
+tabs.forEach(function(t){if(t.dataset.t===id&&t.scrollIntoView){try{t.scrollIntoView({block:'nearest',inline:'center'})}catch(e){}}})}
+tabs.forEach(function(t){t.onclick=function(){show(t.dataset.t)}});
+function prog(s){var bar=$('.prog i',s)[0];if(!bar)return;var c=$('input[data-id]',s),d=c.filter(function(x){return x.checked}).length;bar.style.width=c.length?(100*d/c.length)+'%':'0'}
+function stat(){var a=$('input[data-done]'),n=a.filter(function(x){return x.checked}).length;var e=$('#stat')[0];if(e)e.textContent='Пройдено уроков: '+n+' из '+a.length}
+$('input[data-id]').forEach(function(c){c.checked=ls('rp_'+c.dataset.id)==='1';c.onchange=function(){ls('rp_'+c.dataset.id,c.checked?'1':'0');prog(c.closest('.topic'))}});
+$('input[data-done]').forEach(function(c){var id=c.dataset.done,tab=tabs.filter(function(t){return t.dataset.t===id})[0];
+c.checked=ls('rp_'+id)==='1';function ap(){if(tab)tab.classList.toggle('ok',c.checked)}ap();
+c.onchange=function(){ls('rp_'+id,c.checked?'1':'0');ap();stat()}});
+secs.forEach(prog);stat();show('home');
+function wm(u){var t=u.replace(/[<>&"]/g,'');var svg='<svg xmlns="http://www.w3.org/2000/svg" width="320" height="170"><text x="10" y="100" font-size="17" font-family="Arial" fill="#3a332d" transform="rotate(-24 160 85)">'+t+'</text></svg>';
+$('#wm')[0].style.backgroundImage='url("data:image/svg+xml;utf8,'+encodeURIComponent(svg)+'")'}
+function open(u){document.body.classList.remove('locked');$('#gate')[0].style.display='none';wm(u)}
+var u=null;try{u=sessionStorage.getItem('rp_u')}catch(e){}
+if(u)open(u);
+$('#go')[0].onclick=function(){var v=$('#em')[0].value.trim();if(v.length<5||v.indexOf('@')<1){$('#err')[0].textContent='Введите почту, на которую выдан доступ';return}
+try{sessionStorage.setItem('rp_u',v)}catch(e){}open(v)};
+['contextmenu','copy','cut','dragstart'].forEach(function(e){document.addEventListener(e,function(ev){if(ev.target.tagName!=='INPUT')ev.preventDefault()})});
+document.addEventListener('keydown',function(e){var k=(e.key||'').toLowerCase();if((e.ctrlKey||e.metaKey)&&'pscu'.indexOf(k)>-1&&e.target.tagName!=='INPUT')e.preventDefault()});
+document.addEventListener('visibilitychange',function(){document.body.classList.toggle('blur',document.hidden)});
+})();
+</script></body></html>
